@@ -376,7 +376,7 @@ function HeroSection() {
           </span>
         </h1>
         <p className="text-xl text-black/50 mb-10 leading-relaxed max-w-[540px] mx-auto">
-          Every great spot in Shanghai, in English — viral finds and hidden gems sourced from locals who actually live here, organized by vibe and neighborhood so your day actually makes sense.
+          Every great spot in Shanghai, in English — viral finds and hidden gems to feel like a local, organized by vibe and neighborhood so your day actually makes sense.
         </p>
         <div className="flex flex-wrap justify-center gap-3 mb-12">
           <Link href="/explore">
