@@ -19,6 +19,7 @@ const MapWithNoSSR = dynamic(() => import('@/components/mapbox-map'), {
     </div>
   ),
 });
+
 const categories = [
   { name: 'All',              icon: Sparkles },
   { name: 'Food',             icon: UtensilsCrossed },
@@ -31,7 +32,6 @@ const categories = [
   { name: 'Viewpoints',       icon: Eye },
   { name: 'Study',            icon: BookOpen },
 ];
- 
 
 const vibes = [
   'Any Vibe',
@@ -485,6 +485,11 @@ export default function HomePage() {
         .guide-strip-count { font-size: 13px; color: rgba(255,255,255,0.3); white-space: nowrap; }
         .guide-strip-arrow { width: 30px; height: 30px; border-radius: 50%; border: 1px solid; display: flex; align-items: center; justify-content: center; transition: transform 0.2s; }
         .guide-strip:hover .guide-strip-arrow { transform: scale(1.1); }
+
+        /* hide scrollbar on category strip */
+        .category-strip { scrollbar-width: none; -ms-overflow-style: none; }
+        .category-strip::-webkit-scrollbar { display: none; }
+
         @media (max-width: 640px) {
           .guide-strip-body { padding: 16px 14px; }
           .guide-strip-line { display: none; }
@@ -553,38 +558,63 @@ export default function HomePage() {
             heading="Every spot. One map."
             sub="Hand-picked, in English, filterable by vibe and budget. No filler, no tourist traps you didn't ask for."
           />
-          <div className="space-y-4 mb-10">
-            <div className="flex flex-wrap justify-center gap-2">
+
+          <div className="mb-10">
+            {/* Category pills — horizontal scroll on mobile, centered on desktop */}
+            <div className="category-strip flex gap-2 overflow-x-auto sm:flex-wrap sm:justify-center sm:overflow-visible -mx-6 px-6 pb-2 mb-3 sm:mx-0 sm:px-0">
               {categories.map((cat) => {
                 const Icon = cat.icon;
                 return (
-                  <button key={cat.name} onClick={() => setSelectedCategory(cat.name)}
-                    className={`flex items-center gap-2 px-4 py-2.5 rounded-full text-sm font-medium transition-all ${selectedCategory === cat.name ? 'bg-black text-white' : 'bg-white text-black/70 border border-black/10 hover:border-black/30'}`}>
-                    <Icon className="w-4 h-4" />{cat.name}
+                  <button
+                    key={cat.name}
+                    onClick={() => setSelectedCategory(cat.name)}
+                    className={`flex items-center gap-2 px-4 py-2.5 rounded-full text-sm font-medium whitespace-nowrap flex-shrink-0 transition-all ${
+                      selectedCategory === cat.name
+                        ? 'bg-black text-white'
+                        : 'bg-white text-black/70 border border-black/10 hover:border-black/30'
+                    }`}
+                  >
+                    <Icon className="w-4 h-4" />
+                    {cat.name}
                   </button>
                 );
               })}
             </div>
-            <div className="flex flex-wrap justify-center items-center gap-3">
+
+            {/* Vibe + Budget */}
+            <div className="flex flex-wrap justify-center items-center gap-2">
               <div className="flex items-center gap-2">
                 <div className="flex items-center gap-1.5 text-sm font-medium text-black/40">
-                  <Sparkles className="w-3.5 h-3.5" /><span>Vibe</span>
+                  <Sparkles className="w-3.5 h-3.5" />
+                  <span>Vibe</span>
                 </div>
-                <select value={selectedVibe} onChange={(e) => setSelectedVibe(e.target.value)}
-                  className="px-4 py-2.5 rounded-full text-sm font-medium bg-white border border-black/10 text-black/70 outline-none cursor-pointer hover:border-black/30 transition-colors">
+                <select
+                  value={selectedVibe}
+                  onChange={(e) => setSelectedVibe(e.target.value)}
+                  className="px-4 py-2.5 rounded-full text-sm font-medium bg-white border border-black/10 text-black/70 outline-none cursor-pointer hover:border-black/30 transition-colors"
+                >
                   {vibes.map((v) => <option key={v} value={v}>{v}</option>)}
                 </select>
               </div>
               <div className="flex gap-1.5">
                 {budgetOptions.map((budget) => (
-                  <button key={budget.label} onClick={() => setSelectedBudget(budget.value)}
-                    className={`flex items-center gap-1.5 px-4 py-2.5 rounded-full text-sm font-medium transition-all ${selectedBudget === budget.value ? 'bg-black text-white' : 'bg-white text-black/70 border border-black/10 hover:border-black/30'}`}>
-                    <Wallet className="w-3.5 h-3.5" />{budget.label}
+                  <button
+                    key={budget.label}
+                    onClick={() => setSelectedBudget(budget.value)}
+                    className={`flex items-center gap-1.5 px-4 py-2.5 rounded-full text-sm font-medium transition-all ${
+                      selectedBudget === budget.value
+                        ? 'bg-black text-white'
+                        : 'bg-white text-black/70 border border-black/10 hover:border-black/30'
+                    }`}
+                  >
+                    <Wallet className="w-3.5 h-3.5" />
+                    {budget.label}
                   </button>
                 ))}
               </div>
             </div>
           </div>
+
           <div className="bg-[#1a1a1a] rounded-2xl overflow-hidden shadow-2xl">
             <div className="h-[450px] md:h-[500px]">
               <MapWithNoSSR
@@ -595,6 +625,7 @@ export default function HomePage() {
               />
             </div>
           </div>
+
           <div className="text-center mt-8">
             <Link href="/explore">
               <button className="group inline-flex items-center gap-3 text-lg font-medium text-black hover:opacity-70 transition-opacity">
