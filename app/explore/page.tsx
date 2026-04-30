@@ -156,6 +156,18 @@ function ExploreContent() {
           .desktop-only { display: none !important; }
         }
 
+        /* FORCE DESKTOP FILTER BAR - horizontal on desktop */
+        @media (min-width: 769px) {
+          .force-desktop-filter-bar {
+            display: block !important;
+          }
+          .force-desktop-filter-bar > div > div {
+            flex-direction: row !important;
+            flex-wrap: wrap !important;
+            display: flex !important;
+          }
+        }
+
         /* Mobile filter sheet animation */
         @keyframes slideUp {
           from { transform: translateY(100%); }
@@ -336,19 +348,17 @@ function ExploreContent() {
       </header>
 
       {/* ══════════════════════════════════════════════════════════════════ */}
-      {/* DESKTOP FILTER BAR                                                  */}
+      {/* DESKTOP FILTER BAR (forced horizontal)                             */}
       {/* ══════════════════════════════════════════════════════════════════ */}
       <main style={{ paddingTop: '52px', minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
 
         {activeTab !== 'saved' && (
-          <div
-            className="desktop-only"
-            style={{ background: 'white', borderBottom: '0.5px solid #ebebeb' }}
-          >
+          <div className="force-desktop-filter-bar" style={{ background: 'white', borderBottom: '0.5px solid #ebebeb' }}>
             <div style={{ padding: '10px 20px', maxWidth: '1400px', margin: '0 auto' }}>
-              <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', alignItems: 'center' }}>
-
-                <div className="scroll-hide" style={{ display: 'flex', gap: '6px', overflowX: 'auto', paddingBottom: '2px' }}>
+              <div style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', gap: '8px', alignItems: 'center' }}>
+                
+                {/* Category pills - also horizontal */}
+                <div style={{ display: 'flex', gap: '6px', overflowX: 'auto', paddingBottom: '2px' }}>
                   {categories.map(({ name, icon: Icon }) => (
                     <button key={name} onClick={() => setSelectedCategory(name)}
                       style={selectedCategory === name ? pillActive : pillInactive}>
