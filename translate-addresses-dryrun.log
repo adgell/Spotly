@@ -1,0 +1,74 @@
+﻿
+> my-project@0.1.0 translate:addresses
+> node --import tsx scripts/translate-addresses.ts --dry-run
+
+тЬУ Apoli Itabakery: ф╕Кц╡╖х╕ВщХ┐хоБхМ║хЕ┤хЫ╜ш╖п380хП╖(ф║дщАЪхдзхнжхЬ░щУБчлЩ7хП╖хПгцнешбМ350ч▒│) тЖТ China, Shang Hai Shi, Chang Ning Qu, хНОх▒▒ш╖п1510хП╖ щВоцФ┐ч╝ЦчаБ: 200031
+тЬУ New York Bagelous Museum: ф╕Кц╡╖х╕Вщ╗Дц╡жхМ║ц╖оц╡╖ф╕нш╖пшбЧщБУщймх╜Уш╖п245хП╖цЦ░хдйхЬ░цЧ╢х░Ъш┤нчЙйф╕нх┐Г2цЬЯф╕Ах▒ВL111щУ║ф╜Н тЖТ China, Shang Hai Shi, Huang Pu Qu, хНЧцШМш╖п щВоцФ┐ч╝ЦчаБ: 200025
+тЬУ Egg Allday Brunch: ф╕Кц╡╖х╕ВщЭЩхоЙхМ║шеДщШ│хМЧш╖п12хП╖(CavernцЦЬхп╣щЭв5ч▒│) тЖТ China, Shang Hai Shi, Jing An Qu, х╗╢хоЙф╕нш╖п1007хП╖ щВоцФ┐ч╝ЦчаБ: 200041
+тЬУ RAC All├йe: ф╕Кц╡╖х╕ВщЭЩхоЙхМ║шГ╢х╖Юш╖п319х╝Д30хП╖301ход тЖТ 1018-2 Kangding Rd, цЫ╣хо╢ц╕б Jing An Qu, Shang Hai Shi, China, 200042
+тЬУ Sit! Gelato: ф╕Кц╡╖х╕Вщ╗Дц╡жхМ║хНЧцШМш╖п79хП╖ф╕Щ(ц╖оц╡╖ф╕нш╖пхЬ░щУБчлЩ1хП╖хПгцнешбМ340ч▒│) тЖТ China, Shang Hai Shi, Huang Pu Qu, Maoming S Rd, 59хП╖щФжц▒Ященх║Чх│╗х▓нце╝ше┐це╝ф║Мч╗ДW2321 щВоцФ┐ч╝ЦчаБ: 200041
+тЬУ Bebaked: ф╕Кц╡╖х╕ВщХ┐хоБхМ║цДЪхЫнш╖п1107хП╖хИЫщВСSPACEх╝ШхЯ║ тЖТ 599 Changning Rd, Chang Ning Qu, Shang Hai Shi, China, 200031
+тЬУ Matcha Wang: ф╕Кц╡╖х╕Вщ╗Дц╡жхМ║ц╖оц╡╖ф╕нш╖п550хП╖HAI550хХЖхЬ║L1х▒В2хП╖ тЖТ 231 Julu Rd, Huang Pu Qu, Shang Hai Shi, China, 200041
+тЬУ Capybara Cafe (Capyland): ф╕Кц╡╖х╕ВщХ┐хоБхМ║цнжхд╖ш╖п196хП╖301(хе╜хе╜хТЦхХбхП│цЙЛцнецвпф╕К3це╝) тЖТ 6C8C+4VP, Dingxi Rd, Chang Ning Qu, Shang Hai Shi, China, 200050
+тЬУ OPS CAFE: ф╕Кц╡╖х╕Вх╛Рц▒ЗхМ║хдкхОЯш╖п177х╝Д1хП╖ф╕┤(ш┐Сх╗║хЫ╜ше┐ш╖п) тЖТ China, Shang Hai Shi, Xu Hui Qu, шббх▒▒ш╖п17х╝Д щВоцФ┐ч╝ЦчаБ: 200031
+тЬУ Eau Cafe: ф╕Кц╡╖х╕Вх╛Рц▒ЗхМ║ц░╕х║╖ш╖п85хП╖(щЩХше┐хНЧш╖пхЬ░щУБчлЩ7хП╖хПгцнешбМ480ч▒│) тЖТ 1350-9 Fuxing Rd (M), Xu Hui Qu, Shang Hai Shi, China, 200031
+тЬУ 13 de Marzo Caf├й: ф╕Кц╡╖х╕Вх╛Рц▒ЗхМ║хоЙчжПш╖п322хП╖4хП╖це╝1це╝ тЖТ 601 Yan'an Rd (W), Chang Ning Qu, Shang Hai Shi, China, 200031
+тЬУ Mahlkonig Dirty: ф╕Кц╡╖х╕Вх╛Рц▒ЗхМ║ц░╕х║╖ш╖п58хП╖ тЖТ China, Shang Hai Shi, Xu Hui Qu, ц▒╛ц╡╖ш╖п20хП╖ф╕Кц╡╖щЯ│ф╣РхнжщЩв щВоцФ┐ч╝ЦчаБ: 200031
+тЬУ Blue Bottle Coffee: ф╕Кц╡╖х╕ВщЭЩхоЙхМ║хНЧф║мше┐ш╖п1515хП╖щЭЩхоЙхШЙщЗМф╕нх┐ГхМЧхМ║хХЖхЬ║L2х▒ВN2-11 тЖТ China, Shang Hai Shi, Jing An Qu, ф╣ЕхЕЙшГ╢х╖Юш╖п57хП╖ щВоцФ┐ч╝ЦчаБ: 200040
+тЬУ Starbucks Reserve Roastery: ф╕Кц╡╖х╕ВщЭЩхоЙхМ║хНЧф║мше┐ш╖п789хП╖N110шЗ│N201хНХхЕГ тЖТ 63 Wujiang Rd, Jing An Qu, Shang Hai Shi, China, 200041
+тЬУ Manner Coffee (North Bund): ф╕Кц╡╖х╕ВшЩ╣хПгхМ║ф╕ЬхдзхРНш╖п999хП╖хМЧхдЦц╗йцЭечжПхглх╣┐хЬ║B2х▒В26AхП╖ тЖТ 214-1 Dantu Rd, Hong Kou Qu, Shang Hai Shi, China, 200086
+тЬУ REi Flower Coffee Bar: ф╕Кц╡╖х╕ВшЩ╣хПгхМ║хМЧшЛПх╖Юш╖п234хП╖(хдйц╜╝ш╖пхЬ░щУБчлЩ3хПгцнешбМ380ч▒│) тЖТ 233 He'nan Rd (N), Jing An Qu, Shang Hai Shi, China, 200085
+тЬУ Holiland Travel: ф╕Кц╡╖х╕Вц╡жф╕ЬцЦ░хМ║щЩЖхо╢хШ┤ше┐ш╖п168хП╖цнгхдзх╣┐хЬ║3Fх▒В3F41уАБ3F42 тЖТ 2892 Binjiang Blvd, Lujiazui, Pu Dong Xin Qu, Shang Hai Shi, China, 200120
+тЬУ Nudake (HAUS NOWHERE): ф╕Кц╡╖х╕Вщ╗Дц╡жхМ║ц╖оц╡╖ф╕нш╖п806хП╖HAUSNOWHEREф╕Аце╝ тЖТ 460 Changle Rd, Huang Pu Qu, Shang Hai Shi, China, 200041
+тЬУ TX Huaihai: ф╕Кц╡╖х╕Вщ╗Дц╡жхМ║ц╖оц╡╖ф╕нш╖п523хП╖ тЖТ 211-4 Julu Rd, Huang Pu Qu, Shang Hai Shi, China, 200041
+тЬУ Lsoul: ф╕Кц╡╖х╕Вщ╗Дц╡жхМ║ц╖оц╡╖ф╕нш╖п523хП╖TXц╖оц╡╖F3х▒ВL3-07 тЖТ China, Shang Hai Shi, Huang Pu Qu, х╖ищ╣┐ш╖п щВоцФ┐ч╝ЦчаБ: 200041
+тЬУ ToSummer: ф╕Кц╡╖х╕Вх╛Рц▒ЗхМ║ц╣ЦхНЧш╖п111хП╖(ф╕Кц╡╖хЫ╛ф╣жщжЖхЬ░щУБчлЩ3хП╖хПгцнешбМ340ч▒│) тЖТ China, Shang Hai Shi, Xu Hui Qu, хНОх▒▒ш╖п1301хП╖ щВоцФ┐ч╝ЦчаБ: 200031
+тЬУ Blackhead: ф╕Кц╡╖х╕Вщ╗Дц╡жхМ║ц╖оц╡╖ф╕нш╖п523-527хП╖TXц╖оц╡╖L3х▒В18g 18f тЖТ China, Shang Hai Shi, Huang Pu Qu, х╖ищ╣┐ш╖п щВоцФ┐ч╝ЦчаБ: 200041
+тЬУ Tagi: ф╕Кц╡╖х╕Вх╛Рц▒ЗхМ║щ╛ЩшЕ╛хдзщБУ2250хП╖ше┐х▓╕цвжф╕нх┐Г10цаЛ1х▒Вч╝ЦхП╖10L-105хП╖ тЖТ Long Yao Lu, Xu Hui Qu, Shang Hai Shi, China, 200232
+тЬУ Times Remake: ф╕Кц╡╖х╕ВщЭЩхоЙхМ║хпМц░Сш╖п271хП╖ф┐Эч╜ЧшК▒хЫнхЖЕщГи тЖТ China, Shang Hai Shi, Jing An Qu, Yan'an Rd (M), х╗╢хоЙф╕нш╖п1135х╝Д5щЭЩхоЙшК▒хЫнхХЖхКбце╝ щВоцФ┐ч╝ЦчаБ: 200041
+тЬУ Super Brand Mall: ф╕Кц╡╖х╕Вц╡жф╕ЬцЦ░хМ║ф╕нхЫ╜(ф╕Кц╡╖)шЗкчФ▒ш┤╕цШУшпХщкМхМ║щЩЖхо╢хШ┤ше┐ш╖п168хП╖ тЖТ 168 Lujiazui W Rd, Lujiazui, Pu Dong Xin Qu, Shang Hai Shi, China, 200120
+тЬУ IAPM Mall: ф╕Кц╡╖х╕Вх╛Рц▒ЗхМ║ц╖оц╡╖ф╕нш╖п999хП╖(щЩХше┐хНЧш╖пхЬ░щУБчлЩ10хП╖хПгцнешбМ180ч▒│) тЖТ China, Shang Hai Shi, Xu Hui Qu, цЦ░ф╣Рш╖п178 щВоцФ┐ч╝ЦчаБ: 200041
+тЬУ Shanghai Village Outlet: ф╕Кц╡╖х╕Вц╡жф╕ЬцЦ░хМ║хНУшААш╖п58х╝Д1-365хП╖ тЖТ 5QX5+5X Pudong, Shanghai, China
+тЬУ Panlong Xintiandi: ф╕Кц╡╖х╕ВщЭТц╡жхМ║х╛Рц│╛щХЗшЯащ╝Ош╖п123х╝Д8хП╖ тЖТ 518 Huaxu Hwy, Qing Pu Qu, Shang Hai Shi, China, 201702
+тЬУ 1000 Trees: ф╕Кц╡╖х╕ВцЩощЩАхМ║щХ┐хп┐ш╖пшбЧщБУшОлх╣▓х▒▒ш╖п600хП╖(ц▒ЯхоБш╖пхЬ░щУБчлЩ1хП╖хПгцнешбМ460ч▒│) тЖТ Environmental Theme Park of Suzhouhe Mengqing Garden, 66 Yichang Rd, Pu Tuo Qu, Shang Hai Shi, China, 200061
+тЬУ Fotografiska Shanghai: ф╕Кц╡╖х╕ВщЭЩхоЙхМ║хЕЙхдНш╖п127хП╖(цЦ░щЧ╕ш╖пхЬ░щУБчлЩ1хП╖хПгцнешбМ370ч▒│) тЖТ China, Shang Hai Shi, Jing An Qu, щХ┐хоЙш╖п57хП╖ щВоцФ┐ч╝ЦчаБ: 200071
+тЬУ EKA Tianwu: ф╕Кц╡╖х╕Вц╡жф╕ЬцЦ░хМ║щЗСцбеш╖п535хП╖2цаЛ1х▒В тЖТ 7H7C+X7P, Pudong, Shanghai, China, 200136
+тЬУ M50 Art District: ф╕Кц╡╖х╕ВцЩощЩАхМ║шОлх╣▓х▒▒ш╖п50хП╖ тЖТ 100-202 Zhongtan Rd, Pu Tuo Qu, Shang Hai Shi, China, 200061
+тЬУ 1933 Old Millfun: ф╕Кц╡╖х╕ВшЩ╣хПгхМ║ц▓Щц│╛ш╖п10хП╖ тЖТ China, Shang Hai Shi, Hong Kou Qu, Luxun Park, Qiujiang Rd, шЩмц▒Яш╖п49х╝Д60 щВоцФ┐ч╝ЦчаБ: 200081
+тЬУ Shanghai Starry Art Museum: ф╕Кц╡╖х╕Вщ╗Дц╡жхМ║хНЧф║мф╕Ьш╖п353хП╖цВжшНЯх╣┐хЬ║F3х▒В тЖТ China, Shang Hai Shi, Huang Pu Qu, хМЧф║мф╕Ьш╖п597хП╖ щВоцФ┐ч╝ЦчаБ: 200001
+тЬУ LV Louis Vuitton Extraordinary Journey: ф╕Кц╡╖х╕ВщЭЩхоЙхМ║хНЧф║мше┐ш╖п789хП╖хЕ┤ф╕ЪхдкхПдц▒ЗN129(хНЧф║мше┐ш╖пхЬ░щУБчлЩ5хП╖хПгцЧБ) тЖТ China, Shang Hai Shi, Jing An Qu, ц│░хЕ┤ш╖п298хП╖ щВоцФ┐ч╝ЦчаБ: 200041
+тЬУ Shanghai Postal Museum: ф╕Кц╡╖х╕ВшЩ╣хПгхМ║хдйц╜╝ш╖п395хП╖(хдйц╜╝ш╖пхЬ░щУБчлЩ3хП╖хПгцнешбМ290ч▒│) тЖТ 777 Tanggu Rd, Jing An Qu, Shang Hai Shi, China, 200085
+тЬУ St. Ignatius Cathedral: ф╕Кц╡╖х╕Вх╛Рц▒ЗхМ║шТ▓ше┐ш╖п158хП╖(х╛Рхо╢ц▒ЗхЬ░щУБчлЩ8хП╖хПгцнешбМ170ч▒│) тЖТ China, Shang Hai Shi, Xu Hui Qu, шЩ╣цбеш╖п400х╝Д щВоцФ┐ч╝ЦчаБ: 200030
+тЬУ Jing'an Temple: ф╕Кц╡╖х╕ВщЭЩхоЙхМ║хНЧф║мше┐ш╖п1686хП╖(щЭЩхоЙхп║хЬ░щУБчлЩ1хП╖хПгцнешбМ60ч▒│) тЖТ China, Shang Hai Shi, Jing An Qu, ф╕ЗшИкц╕бш╖п217хП╖я╝Иш┐Сф╣Мщ▓БцЬищ╜РхМЧш╖пя╝Й щВоцФ┐ч╝ЦчаБ: 200040
+тЬУ Yuyuan Old Street: ф╕Кц╡╖х╕Вщ╗Дц╡жхМ║ш▒лхЫн тЖТ China, Shang Hai Shi, Huang Pu Qu, ц▓│хНЧхНЧш╖п42-76хП╖ш┐Сф║║ц░Сш╖п щВоцФ┐ч╝ЦчаБ: 200002
+тЬУ Waibaidu Bridge: ф╕Кц╡╖х╕Вщ╗Дц╡жхМ║хМЧшЛПх╖Юш╖п111хП╖ тЖТ China, Shang Hai Shi, Hong Kou Qu, Luxun Park, хЫЫх╖ЭхМЧш╖п18хП╖ щВоцФ┐ч╝ЦчаБ: 200085
+тЬУ Shanghai Library East: ф╕Кц╡╖х╕ВшЩ╣хПгхМ║хТМх╣│хЕмхЫнхЖЕ(хЫЫх╣│ш╖пхЬ░щУБчлЩ3хП╖хПгцнешбМ260ч▒│) тЖТ 1037 Tianbao Rd, Hong Kou Qu, Shang Hai Shi, China, 200086
+тЬУ Heping Library: ф╕Кц╡╖х╕ВшЩ╣хПгхМ║хТМх╣│хЕмхЫнхЖЕ(хЫЫх╣│ш╖пхЬ░щУБчлЩ3хП╖хПгцнешбМ260ч▒│) тЖТ 1037 Tianbao Rd, Hong Kou Qu, Shang Hai Shi, China, 200086
+тЬУ Tsutaya Books (Columbia Country Club): ф╕Кц╡╖х╕ВщХ┐хоБхМ║х╗╢хоЙше┐ш╖п1262хП╖ф╕КчФЯ┬╖цЦ░цЙА7хП╖це╝хУеф╝жцпФф║Ъф╣бцЭСф┐▒ф╣РщГихЖЕ тЖТ 3 Jin Heng Xiao Qu, Chang Ning Qu, Shang Hai Shi, China, 200031
+тЬУ Tsutaya Bookstore (Taikoo Li): ф╕Кц╡╖х╕Вц╡жф╕ЬцЦ░хМ║ф╕ЬшВ▓ш╖п500х╝Д1-9хП╖хЙНц╗йхдкхПдщЗМL4х▒В тЖТ 5F3G+W99, Yaolong Rd, Pu Dong Xin Qu, Shang Hai Shi, China, 200126
+тЬУ Duoyun Books (Shanghai Tower): ф╕Кц╡╖х╕Вц╡жф╕ЬцЦ░хМ║щУ╢хЯОф╕нш╖п501хП╖ф╕Кц╡╖ф╕нх┐ГхдзхОж52це╝ тЖТ 165 Lujiazui Ring Rd, Lujiazui, Pu Dong Xin Qu, Shang Hai Shi, China, 200120
+тЬУ Shamei Building: ф╕Кц╡╖х╕Вщ╗Дц╡жхМ║хМЧф║мф╕Ьш╖п194хП╖(хНЧф║мф╕Ьш╖пхЬ░щУБчлЩ6хП╖хПгцнешбМ370ч▒│) тЖТ 33 He'nan Rd (N), Jing An Qu, Shang Hai Shi, China, 200085
+тЬУ Magnolia Plaza - Free Observation Deck (39F): ф╕Кц╡╖х╕ВшЩ╣хПгхМ║ф╕ЬхдзхРНш╖п501хП╖ф╕Кц╡╖чЩ╜чОЙхЕ░х╣┐хЬ║ш┤нчЙйф╕нх┐Г тЖТ 271 Donghanyang Rd, Hong Kou Qu, Shang Hai Shi, China, 200086
+тЬУ North Bund Green Land Elevator: ф╕Кц╡╖х╕ВшЩ╣хПгхМ║ф╕ЬхдзхРНш╖п558-678хМЧхдЦц╗йц╗иц▒Яч╗┐хЬ░(ше┐хНЧшзТ) тЖТ 237 Liyang Rd, Hong Kou Qu, Shang Hai Shi, China, 200086
+тЬУ Vue Bar (Hyatt on the Bund): ф╕Кц╡╖х╕ВшЩ╣хПгхМ║щ╗Дц╡жш╖п199хП╖хдЦц╗йшМВцВжхдзщЕТх║Ч32х▒В тЖТ China, Shang Hai Shi, Hong Kou Qu, Luxun Park, цнжцШМш╖п щВоцФ┐ч╝ЦчаБ: 200080
+тЬУ The Bund No.8: ф╕Кц╡╖х╕Вщ╗Дц╡жхМ║ф╕нх▒▒ф╕Ьф║Мш╖п8хП╖щЗСх╗╢хдзхОж7це╝щЬ▓хП░ тЖТ 151 Jiangxi Rd (M), Huang Pu Qu, Shang Hai Shi, China, 200002
+тЬУ Flair (Ritz-Carlton): ф╕Кц╡╖х╕Вц╡жф╕ЬцЦ░хМ║ф╕Цч║кхдзщБУ8хП╖хЫ╜щЗСф╕нх┐Гф╕╜цАЭхНбх░Фщб┐щЕТх║Ч58це╝ тЖТ China, Shang Hai Shi, Pu Dong Xin Qu, Lujiazui, ц╗иц▒ЯхдзщБУ2789хП╖,ф╕░хТМш╖пф╕ОщЩЖхо╢хШ┤ше┐ш╖пш╖пхПгф╗ехМЧч║ж100ч▒│ш╖пше┐ щВоцФ┐ч╝ЦчаБ: 200120
+тЬУ Speak Low: ф╕Кц╡╖х╕Вщ╗Дц╡жхМ║хдНхЕ┤ф╕нш╖п579хП╖(ш┐СчСЮщЗСф║Мш╖п) тЖТ China, Shang Hai Shi, Huang Pu Qu, шМВхРНхНЧш╖п76хП╖ щВоцФ┐ч╝ЦчаБ: 200041
+тЬУ RAC Bar: ф╕Кц╡╖х╕Вх╛Рц▒ЗхМ║хоЙчжПш╖п322хП╖14х╣вф╕Аце╝(цнжх║╖ш╖пф╕ОхоЙчжПш╖пф║дхПг) тЖТ China, Shang Hai Shi, Chang Ning Qu, х╗╢хоЙщлШцЮ╢ш╖п щВоцФ┐ч╝ЦчаБ: 200031
+тЬУ Young-SPACE Hot Spring Hall: ф╕Кц╡╖х╕Вц╡жф╕ЬцЦ░хМ║ц╡жчФ╡ш╖п57хП╖ тЖТ 868 Puming Rd, Pu Dong Xin Qu, Shang Hai Shi, China, 200010
+тЬУ 24-hour SPA - Shuiguo: ф╕Кц╡╖х╕ВщЧ╡шбМхМ║чФ│ц╗ихНЧш╖п1010хП╖хЬ░ф╕Л1х▒В01-08уАБ40-43уАБ45уАБ46уАБ48-110ход тЖТ China, Shang Hai Shi, Min Hang Qu, хНОч┐Фш╖п1680хП╖ щВоцФ┐ч╝ЦчаБ: 201105
+тЬУ 1886 German Car Restaurant: ф╕Кц╡╖х╕Вц╡жф╕ЬцЦ░хМ║ц╗иц▒ЯхдзщБУ3068хП╖(цЛ╛цнешбЧ9хП╖хпМщГ╜ф╕ЦчХМхпМхЯОш╖пф╝СщЧ▓шбЧB1) тЖТ China, Shang Hai Shi, Huang Pu Qu, ц▒Яше┐ф╕нш╖пх║Ч щВоцФ┐ч╝ЦчаБ: 200120
+тЬУ 1192 Shanghai Old Street Food Court: ф╕Кц╡╖х╕Вц╡жф╕ЬцЦ░хМ║ц╜НхЭКцЦ░цЭСшбЧщБУф╕Цч║кхдзщБУ1192хП╖ф╕Цч║кц▒Зх╣┐хЬ║LG2 тЖТ China, Shang Hai Shi, Pu Dong Xin Qu, Yaohan, х╝ацЭиш╖п837хП╖ щВоцФ┐ч╝ЦчаБ: 200120
+тЬУ Taste of China: ф╕Кц╡╖х╕Вщ╗Дц╡жхМ║хдЦц╗й┬╖шАБх╕Вх║ЬLG1-03(ц▓│хНЧф╕нш╖п270хП╖хЬ░ф╕Лф╕Ах▒В) тЖТ 54 Wufu Aly, Huang Pu Qu, Shang Hai Shi, China, 200001
+тЬУ Spacelab: ф╕Кц╡╖х╕Вц╡жф╕ЬцЦ░хМ║щЩЖхо╢хШ┤ше┐ш╖п165хП╖цнгхдзх╣┐хЬ║ф║Фце╝35-41хП╖ тЖТ China, Shang Hai Shi, Pu Dong Xin Qu, Lujiazui, ф╕нх▒▒ф╕Ьф╕Аш╖п24хП╖ щВоцФ┐ч╝ЦчаБ: 200120
+тЬУ Warehouse No. 3 Restaurant: ф╕Кц╡╖х╕ВщЧ╡шбМхМ║ц╝ХхоЭш╖п3299х╝Дф╕ГхоЭхоЭщ╛ЩхЯОц▓┐ц▓│хИлхвЕчммф╕АцаЛ тЖТ 228-5 Wubao Rd, Min Hang Qu, Shang Hai Shi, China, 201101
+тЬУ Qingxi Country Park: ф╕Кц╡╖х╕ВщЭТц╡жхМ║щЗСц│╜щХЗч┤лшО▓ш╖п500хП╖ тЖТ 3XCR+7R Qingpu District, Shanghai, China
+тЬУ Greenhouse (Expo Park): ф╕Кц╡╖х╕Вц╡жф╕ЬцЦ░хМ║ц╡ОцШОш╖п199хП╖(ф╕Кц╡╖ф╕ЦхНЪцЦЗхМЦхЕмхЫнхЖЕ) тЖТ 5FJC+4FG, Shibo Ave, хСихо╢ц╕б Pu Dong Xin Qu, Shang Hai Shi, China, 200126
+тЬУ Zikawei Library: ф╕Кц╡╖х╕Вх╛Рц▒ЗхМ║ц╝Хц║кхМЧш╖п158хП╖(х╛Рхо╢ц▒ЗхЬ░щУБчлЩхЗ║хЕехПгцЧБ) тЖТ China, Shang Hai Shi, Xu Hui Qu, Xujiahui, шЩ╣цбеш╖п168хП╖ф╕ЬцЦ╣цЫ╝хУИщб┐ше┐хМ║ф╝ЪцЙАя╝Иш┐СцЦЗхоЪш╖пя╝Й щВоцФ┐ч╝ЦчаБ: 200030
+тЬУ Polly Cafe: ф╕Кц╡╖х╕ВщХ┐хоБхМ║х╗╢хоЙше┐ш╖п1221хП╖ц│ЫхдкхдзхОжF1х▒В тЖТ 1122 Dingxi Rd, Chang Ning Qu, Shang Hai Shi, China, 200031
+тЬУ Blue Bottle Coffee: ф╕Кц╡╖х╕ВщЭЩхоЙхМ║шМВхРНхМЧш╖п258хП╖х╝ахЫнL1х▒ВW5-1A тЖТ China, Shang Hai Shi, Jing An Qu, ц▒ЯхоБш╖п83х╝Д4хП╖805ход щВоцФ┐ч╝ЦчаБ: 200041
+
+Summary
+translated count: 65
+skipped (already English): 13
+failed: 0
