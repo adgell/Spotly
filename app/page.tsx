@@ -216,8 +216,6 @@ const districts = [
   },
 ];
 
-// ─── Hooks ────────────────────────────────────────────────────────────────────
-
 function useReveal() {
   const ref = useRef<HTMLDivElement>(null);
   useEffect(() => {
@@ -232,8 +230,6 @@ function useReveal() {
   }, []);
   return ref;
 }
-
-// ─── Section Header ───────────────────────────────────────────────────────────
 
 function SectionHeader({ step, heading, sub, centered = true, light = false }: {
   step: string; heading: React.ReactNode; sub?: string; centered?: boolean; light?: boolean;
@@ -258,8 +254,6 @@ function SectionHeader({ step, heading, sub, centered = true, light = false }: {
   );
 }
 
-// ─── Pain Item ────────────────────────────────────────────────────────────────
-
 function PainItem({ num, title, body, index }: { num: string; title: string; body: string; index: number }) {
   const ref = useReveal();
   return (
@@ -273,14 +267,13 @@ function PainItem({ num, title, body, index }: { num: string; title: string; bod
   );
 }
 
-// ─── Guide Strip ──────────────────────────────────────────────────────────────
-
 function GuideStrip({ guide, index }: { guide: typeof guides[0]; index: number }) {
   const ref = useReveal();
   return (
     <Link
       ref={ref as any}
-      href={`/explore?category=${guide.filter}`}
+      // FIXED: encodeURIComponent so '&' and 'é' don't break URL parsing
+      href={`/explore?category=${encodeURIComponent(guide.filter)}`}
       className="guide-strip"
       style={{ '--delay': `${index * 70}ms` } as React.CSSProperties}
     >
@@ -298,8 +291,6 @@ function GuideStrip({ guide, index }: { guide: typeof guides[0]; index: number }
     </Link>
   );
 }
-
-// ─── Feature Card ─────────────────────────────────────────────────────────────
 
 function FeatureCard({ icon: Icon, accentColor, title, body, index }: {
   icon: React.ElementType; accentColor: string; title: string; body: string; index: number;
@@ -320,8 +311,6 @@ function FeatureCard({ icon: Icon, accentColor, title, body, index }: {
     </div>
   );
 }
-
-// ─── Hero ─────────────────────────────────────────────────────────────────────
 
 function HeroSection() {
   const imgRef = useRef<HTMLImageElement>(null);
@@ -400,14 +389,13 @@ function HeroSection() {
   );
 }
 
-// ─── District Card ────────────────────────────────────────────────────────────
-
 function DistrictCard({ district }: { district: typeof districts[0] }) {
   const [hovered, setHovered] = useState(false);
   return (
     <div
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
+      // already had encodeURIComponent — kept it
       onClick={() => window.location.href = `/explore?neighborhood=${encodeURIComponent(district.name)}`}
       style={{ width: '260px', height: '360px', borderRadius: '16px', overflow: 'hidden', position: 'relative', flexShrink: 0, cursor: 'pointer' }}
     >
@@ -441,15 +429,12 @@ function DistrictCard({ district }: { district: typeof districts[0] }) {
   );
 }
 
-// ─── Page ─────────────────────────────────────────────────────────────────────
-
 export default function HomePage() {
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [selectedVibe, setSelectedVibe] = useState('Any Vibe');
   const [selectedBudget, setSelectedBudget] = useState<string | null>(null);
   const [mapSpots, setMapSpots] = useState<any[]>([]);
 
-  // Fetch real spots from Airtable for the landing page map
   useEffect(() => {
     fetch('/api/spots')
       .then(r => r.ok ? r.json() : [])
@@ -486,7 +471,6 @@ export default function HomePage() {
         .guide-strip-arrow { width: 30px; height: 30px; border-radius: 50%; border: 1px solid; display: flex; align-items: center; justify-content: center; transition: transform 0.2s; }
         .guide-strip:hover .guide-strip-arrow { transform: scale(1.1); }
 
-        /* hide scrollbar on category strip */
         .category-strip { scrollbar-width: none; -ms-overflow-style: none; }
         .category-strip::-webkit-scrollbar { display: none; }
 
@@ -501,10 +485,8 @@ export default function HomePage() {
 
       <Navbar />
 
-      {/* ── 1. HERO ─────────────────────────────────────────────────────── */}
       <HeroSection />
 
-      {/* ── 2. GUIDES ───────────────────────────────────────────────────── */}
       <section style={{ padding: '96px 24px', background: '#111110', borderTop: '1px solid #1a1a19' }}>
         <div className="max-w-[760px] mx-auto">
           <SectionHeader
@@ -531,7 +513,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── 3. PAIN POINTS ──────────────────────────────────────────────── */}
       <section style={{ padding: '96px 24px', background: 'white', borderTop: '1px solid #ebebeb' }}>
         <div className="max-w-[800px] mx-auto">
           <SectionHeader
@@ -550,7 +531,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── 4. MAP ──────────────────────────────────────────────────────── */}
       <section style={{ padding: '96px 24px', background: 'white', borderTop: '1px solid #ebebeb' }}>
         <div className="max-w-[1100px] mx-auto">
           <SectionHeader
@@ -560,7 +540,6 @@ export default function HomePage() {
           />
 
           <div className="mb-10">
-            {/* Category pills — horizontal scroll on mobile, centered on desktop */}
             <div className="category-strip flex gap-2 overflow-x-auto sm:flex-wrap sm:justify-center sm:overflow-visible -mx-6 px-6 pb-2 mb-3 sm:mx-0 sm:px-0">
               {categories.map((cat) => {
                 const Icon = cat.icon;
@@ -581,7 +560,6 @@ export default function HomePage() {
               })}
             </div>
 
-            {/* Vibe + Budget */}
             <div className="flex flex-wrap justify-center items-center gap-2">
               <div className="flex items-center gap-2">
                 <div className="flex items-center gap-1.5 text-sm font-medium text-black/40">
@@ -639,7 +617,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── 5. FEATURES ─────────────────────────────────────────────────── */}
       <section style={{ padding: '96px 24px', background: 'white', borderTop: '1px solid #ebebeb' }}>
         <div className="max-w-[1100px] mx-auto">
           <SectionHeader
@@ -653,7 +630,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── 6. NEIGHBOURHOODS ───────────────────────────────────────────── */}
       <section style={{ padding: '96px 24px', background: 'white', borderTop: '1px solid #ebebeb' }}>
         <div className="max-w-[1100px] mx-auto">
           <SectionHeader
@@ -668,7 +644,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── 7. STATS ────────────────────────────────────────────────────── */}
       <section style={{ padding: '80px 24px', background: 'white', borderTop: '1px solid #ebebeb' }}>
         <div className="max-w-[1100px] mx-auto">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
@@ -687,7 +662,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── 8. CTA ──────────────────────────────────────────────────────── */}
       <section style={{ padding: '96px 24px', background: '#111110', borderTop: '1px solid #1a1a19' }}>
         <div className="max-w-[700px] mx-auto text-center">
           <h2 className="text-3xl md:text-4xl font-semibold mb-4 tracking-tight text-white">
@@ -704,7 +678,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── FOOTER ──────────────────────────────────────────────────────── */}
       <footer style={{ padding: '48px 24px', background: '#0d0d0c', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
         <div className="max-w-[1100px] mx-auto">
           <div className="flex flex-col md:flex-row justify-between items-start gap-8">

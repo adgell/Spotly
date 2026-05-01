@@ -117,7 +117,6 @@ function ExploreContent() {
   const toggleSaved = (id: string) =>
     setSavedSpots(prev => prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id]);
 
-  // Count active non-default filters (for mobile filter button badge)
   const activeFilterCount =
     (selectedCategory !== 'All' ? 1 : 0) +
     (selectedNeighborhood !== 'All Areas' ? 1 : 0) +
@@ -147,7 +146,6 @@ function ExploreContent() {
         .scroll-hide::-webkit-scrollbar { display: none; }
         .scroll-hide { -ms-overflow-style: none; scrollbar-width: none; }
 
-        /* Desktop-only / mobile-only visibility helpers */
         .mobile-only { display: none !important; }
         .desktop-only { display: flex; }
 
@@ -156,19 +154,6 @@ function ExploreContent() {
           .desktop-only { display: none !important; }
         }
 
-        /* FORCE DESKTOP FILTER BAR - horizontal on desktop */
-        @media (min-width: 769px) {
-          .force-desktop-filter-bar {
-            display: block !important;
-          }
-          .force-desktop-filter-bar > div > div {
-            flex-direction: row !important;
-            flex-wrap: wrap !important;
-            display: flex !important;
-          }
-        }
-
-        /* Mobile filter sheet animation */
         @keyframes slideUp {
           from { transform: translateY(100%); }
           to   { transform: translateY(0); }
@@ -178,14 +163,13 @@ function ExploreContent() {
           to   { opacity: 1; }
         }
 
-        /* Bottom-padding on mobile so content isn't hidden by bottom-nav */
         @media (max-width: 768px) {
           .mobile-bottom-pad { padding-bottom: 80px !important; }
         }
       `}</style>
 
       {/* ══════════════════════════════════════════════════════════════════ */}
-      {/* DESKTOP HEADER (hidden on mobile)                                   */}
+      {/* DESKTOP HEADER                                                       */}
       {/* ══════════════════════════════════════════════════════════════════ */}
       <header
         className="desktop-only"
@@ -195,68 +179,72 @@ function ExploreContent() {
           borderBottom: '0.5px solid #ebebeb',
         }}
       >
-        <div style={{ padding: '0 20px', maxWidth: '1400px', margin: '0 auto' }}>
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: '52px' }}>
+        {/* full-width container — NO max-width here, so contents span the entire screen */}
+        <div style={{
+          padding: '0 24px',
+          display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+          height: '52px',
+          width: '100%',
+        }}>
 
-            {/* Left: back + logo */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
-              <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: '6px', color: 'rgba(0,0,0,0.45)', textDecoration: 'none', fontSize: '13px' }}>
-                <ChevronLeft style={{ width: '15px', height: '15px' }} />
-                <span>Back</span>
-              </Link>
-              <div style={{ width: '1px', height: '18px', background: '#ebebeb' }} />
-              <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: '8px', textDecoration: 'none' }}>
-                <div style={{ width: '26px', height: '26px', borderRadius: '8px', background: 'black', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                  <MapPin style={{ width: '13px', height: '13px', color: 'white' }} />
-                </div>
-                <span style={{ fontWeight: 600, fontSize: '15px', color: 'black' }}>Spotly</span>
-              </Link>
-            </div>
-
-            {/* Centre: active filter pill */}
-            {selectedCategory !== 'All' && (
-              <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '12px', color: 'rgba(0,0,0,0.5)' }}>
-                <span>Viewing:</span>
-                <span style={{ padding: '2px 8px', borderRadius: '20px', background: 'rgba(0,0,0,0.06)', color: 'black', fontWeight: 500 }}>{selectedCategory}</span>
-                <button onClick={() => setSelectedCategory('All')} style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'rgba(0,0,0,0.4)', padding: '2px' }}>
-                  <X style={{ width: '12px', height: '12px' }} />
-                </button>
+          {/* Left: back + logo */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '14px', flex: '0 0 auto' }}>
+            <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: '6px', color: 'rgba(0,0,0,0.45)', textDecoration: 'none', fontSize: '13px' }}>
+              <ChevronLeft style={{ width: '15px', height: '15px' }} />
+              <span>Back</span>
+            </Link>
+            <div style={{ width: '1px', height: '18px', background: '#ebebeb' }} />
+            <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: '8px', textDecoration: 'none' }}>
+              <div style={{ width: '26px', height: '26px', borderRadius: '8px', background: 'black', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <MapPin style={{ width: '13px', height: '13px', color: 'white' }} />
               </div>
-            )}
+              <span style={{ fontWeight: 600, fontSize: '15px', color: 'black' }}>Spotly</span>
+            </Link>
+          </div>
 
-            {/* Right: tab switcher */}
-            <div style={{ display: 'flex', background: '#f3f3f2', borderRadius: '10px', padding: '3px', gap: '2px' }}>
-              {(['browse', 'map', 'saved'] as const).map(tab => (
-                <button key={tab} onClick={() => setActiveTab(tab)} style={{
-                  display: 'flex', alignItems: 'center', gap: '5px',
-                  padding: '5px 12px', borderRadius: '8px', border: 'none',
-                  fontSize: '12px', fontWeight: 500, cursor: 'pointer',
-                  background: activeTab === tab ? 'white' : 'transparent',
-                  color: activeTab === tab ? 'black' : 'rgba(0,0,0,0.45)',
-                  boxShadow: activeTab === tab ? '0 1px 3px rgba(0,0,0,0.08)' : 'none',
-                }}>
-                  {tab === 'browse' && <><List style={{ width: '14px', height: '14px' }} /><span>Browse</span></>}
-                  {tab === 'map'    && <><Map style={{ width: '14px', height: '14px' }} /><span>Map</span></>}
-                  {tab === 'saved'  && (
-                    <>
-                      <Bookmark style={{ width: '14px', height: '14px' }} />
-                      <span>Saved</span>
-                      {savedSpots.length > 0 && (
-                        <span style={{ width: '16px', height: '16px', borderRadius: '50%', background: 'black', color: 'white', fontSize: '9px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 600 }}>
-                          {savedSpots.length}
-                        </span>
-                      )}
-                    </>
-                  )}
-                </button>
-              ))}
+          {/* Centre: active filter pill */}
+          {selectedCategory !== 'All' && (
+            <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '12px', color: 'rgba(0,0,0,0.5)', flex: '0 1 auto' }}>
+              <span>Viewing:</span>
+              <span style={{ padding: '2px 8px', borderRadius: '20px', background: 'rgba(0,0,0,0.06)', color: 'black', fontWeight: 500 }}>{selectedCategory}</span>
+              <button onClick={() => setSelectedCategory('All')} style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'rgba(0,0,0,0.4)', padding: '2px' }}>
+                <X style={{ width: '12px', height: '12px' }} />
+              </button>
             </div>
+          )}
+
+          {/* Right: tab switcher */}
+          <div style={{ display: 'flex', background: '#f3f3f2', borderRadius: '10px', padding: '3px', gap: '2px', flex: '0 0 auto' }}>
+            {(['browse', 'map', 'saved'] as const).map(tab => (
+              <button key={tab} onClick={() => setActiveTab(tab)} style={{
+                display: 'flex', alignItems: 'center', gap: '5px',
+                padding: '5px 12px', borderRadius: '8px', border: 'none',
+                fontSize: '12px', fontWeight: 500, cursor: 'pointer',
+                background: activeTab === tab ? 'white' : 'transparent',
+                color: activeTab === tab ? 'black' : 'rgba(0,0,0,0.45)',
+                boxShadow: activeTab === tab ? '0 1px 3px rgba(0,0,0,0.08)' : 'none',
+              }}>
+                {tab === 'browse' && <><List style={{ width: '14px', height: '14px' }} /><span>Browse</span></>}
+                {tab === 'map'    && <><Map style={{ width: '14px', height: '14px' }} /><span>Map</span></>}
+                {tab === 'saved'  && (
+                  <>
+                    <Bookmark style={{ width: '14px', height: '14px' }} />
+                    <span>Saved</span>
+                    {savedSpots.length > 0 && (
+                      <span style={{ width: '16px', height: '16px', borderRadius: '50%', background: 'black', color: 'white', fontSize: '9px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 600 }}>
+                        {savedSpots.length}
+                      </span>
+                    )}
+                  </>
+                )}
+              </button>
+            ))}
           </div>
         </div>
       </header>
 
       {/* ══════════════════════════════════════════════════════════════════ */}
-      {/* MOBILE HEADER (hidden on desktop)                                   */}
+      {/* MOBILE HEADER                                                        */}
       {/* ══════════════════════════════════════════════════════════════════ */}
       <header
         className="mobile-only"
@@ -267,12 +255,10 @@ function ExploreContent() {
           flexDirection: 'column',
         }}
       >
-        {/* Top row: back + logo + filter button */}
         <div style={{
           display: 'flex', alignItems: 'center', justifyContent: 'space-between',
           height: '52px', padding: '0 16px',
         }}>
-          {/* Back arrow */}
           <Link href="/" style={{
             display: 'flex', alignItems: 'center', justifyContent: 'center',
             width: '36px', height: '36px',
@@ -281,7 +267,6 @@ function ExploreContent() {
             <ChevronLeft style={{ width: '22px', height: '22px' }} />
           </Link>
 
-          {/* Centred logo */}
           <Link href="/" style={{
             position: 'absolute', left: '50%', transform: 'translateX(-50%)',
             display: 'flex', alignItems: 'center', gap: '7px', textDecoration: 'none',
@@ -292,7 +277,6 @@ function ExploreContent() {
             <span style={{ fontWeight: 600, fontSize: '16px', color: 'black', letterSpacing: '-0.01em' }}>Spotly</span>
           </Link>
 
-          {/* Filter button (only on browse/map) */}
           {activeTab !== 'saved' ? (
             <button
               onClick={() => setShowMobileFilters(true)}
@@ -320,11 +304,10 @@ function ExploreContent() {
               )}
             </button>
           ) : (
-            <div style={{ width: '36px' }} /> /* spacer */
+            <div style={{ width: '36px' }} />
           )}
         </div>
 
-        {/* Active filters strip — only show if any active filters on mobile */}
         {activeFilterCount > 0 && activeTab !== 'saved' && (
           <div className="scroll-hide" style={{
             display: 'flex', gap: '6px',
@@ -348,16 +331,13 @@ function ExploreContent() {
       </header>
 
       {/* ══════════════════════════════════════════════════════════════════ */}
-      {/* DESKTOP FILTER BAR (forced horizontal)                             */}
-      {/* ══════════════════════════════════════════════════════════════════ */}
       <main style={{ paddingTop: '52px', minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
 
         {activeTab !== 'saved' && (
-          <div className="force-desktop-filter-bar" style={{ background: 'white', borderBottom: '0.5px solid #ebebeb' }}>
-            <div style={{ padding: '10px 20px', maxWidth: '1400px', margin: '0 auto' }}>
+          <div className="desktop-only" style={{ background: 'white', borderBottom: '0.5px solid #ebebeb' }}>
+            <div style={{ padding: '10px 24px', width: '100%' }}>
               <div style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', gap: '8px', alignItems: 'center' }}>
-                
-                {/* Category pills - also horizontal */}
+
                 <div style={{ display: 'flex', gap: '6px', overflowX: 'auto', paddingBottom: '2px' }}>
                   {categories.map(({ name, icon: Icon }) => (
                     <button key={name} onClick={() => setSelectedCategory(name)}
@@ -402,13 +382,11 @@ function ExploreContent() {
           </div>
         )}
 
-        {/* ── Content ─────────────────────────────────────────────────────── */}
         <div style={{ flex: 1, display: 'flex', overflow: 'hidden' }}>
 
-          {/* Browse tab */}
           {activeTab === 'browse' && (
             <div style={{ width: '100%', overflowY: 'auto' }}>
-              <div className="mobile-bottom-pad" style={{ padding: '20px', maxWidth: '1200px', margin: '0 auto' }}>
+              <div className="mobile-bottom-pad" style={{ padding: '20px 24px', maxWidth: '1400px', margin: '0 auto' }}>
 
                 {loading && (
                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px', padding: '80px 0', color: 'rgba(0,0,0,0.4)' }}>
@@ -426,7 +404,7 @@ function ExploreContent() {
 
                 {!loading && !error && (
                   <>
-                    <div className="grid gap-[14px] grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+                    <div className="grid gap-[14px] grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                       {displaySpots.map(spot => (
                         <SpotCard
                           key={spot.id}
@@ -450,7 +428,6 @@ function ExploreContent() {
             </div>
           )}
 
-          {/* Map tab */}
           {activeTab === 'map' && (
             <div style={{ flex: 1, position: 'relative', minHeight: 'calc(100vh - 52px)' }}>
               {loading ? (
@@ -469,10 +446,9 @@ function ExploreContent() {
             </div>
           )}
 
-          {/* Saved tab */}
           {activeTab === 'saved' && (
             <div style={{ width: '100%', overflowY: 'auto' }}>
-              <div className="mobile-bottom-pad" style={{ padding: '20px', maxWidth: '1200px', margin: '0 auto' }}>
+              <div className="mobile-bottom-pad" style={{ padding: '20px 24px', maxWidth: '1400px', margin: '0 auto' }}>
                 {savedSpots.length === 0 ? (
                   <div style={{ textAlign: 'center', padding: '80px 0' }}>
                     <Heart style={{ width: '40px', height: '40px', color: 'rgba(0,0,0,0.15)', margin: '0 auto 16px' }} />
@@ -486,7 +462,7 @@ function ExploreContent() {
                       <h2 style={{ fontSize: '24px', fontWeight: 600, letterSpacing: '-0.02em', marginBottom: '4px' }}>Saved spots</h2>
                       <p style={{ fontSize: '13px', color: 'rgba(0,0,0,0.4)' }}>{savedSpots.length} places saved</p>
                     </div>
-                    <div className="grid gap-[14px] grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+                    <div className="grid gap-[14px] grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                       {displaySpots.map(spot => (
                         <SpotCard
                           key={spot.id}
@@ -505,9 +481,7 @@ function ExploreContent() {
         </div>
       </main>
 
-      {/* ══════════════════════════════════════════════════════════════════ */}
-      {/* MOBILE BOTTOM TAB BAR (hidden on desktop)                           */}
-      {/* ══════════════════════════════════════════════════════════════════ */}
+      {/* MOBILE BOTTOM TAB BAR */}
       <nav
         className="mobile-only"
         style={{
@@ -569,12 +543,9 @@ function ExploreContent() {
         })}
       </nav>
 
-      {/* ══════════════════════════════════════════════════════════════════ */}
-      {/* MOBILE FILTER SHEET                                                 */}
-      {/* ══════════════════════════════════════════════════════════════════ */}
+      {/* MOBILE FILTER SHEET */}
       {showMobileFilters && (
         <>
-          {/* Backdrop */}
           <div
             onClick={() => setShowMobileFilters(false)}
             style={{
@@ -584,7 +555,6 @@ function ExploreContent() {
             }}
           />
 
-          {/* Sheet */}
           <div style={{
             position: 'fixed', bottom: 0, left: 0, right: 0, zIndex: 61,
             background: 'white',
@@ -594,7 +564,6 @@ function ExploreContent() {
             animation: 'slideUp 0.25s cubic-bezier(0.16, 1, 0.3, 1)',
             paddingBottom: 'env(safe-area-inset-bottom)',
           }}>
-            {/* Drag handle */}
             <div style={{
               display: 'flex', justifyContent: 'center',
               padding: '10px 0 6px',
@@ -602,7 +571,6 @@ function ExploreContent() {
               <div style={{ width: '36px', height: '4px', borderRadius: '99px', background: '#e0e0e0' }} />
             </div>
 
-            {/* Header */}
             <div style={{
               display: 'flex', alignItems: 'center', justifyContent: 'space-between',
               padding: '4px 20px 16px',
@@ -637,10 +605,7 @@ function ExploreContent() {
               </div>
             </div>
 
-            {/* Body */}
             <div style={{ padding: '20px' }}>
-
-              {/* Category */}
               <FilterSection title="Category">
                 <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
                   {categories.map(({ name, icon: Icon }) => (
@@ -652,7 +617,6 @@ function ExploreContent() {
                 </div>
               </FilterSection>
 
-              {/* Neighborhood */}
               <FilterSection title="Neighborhood">
                 <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
                   {neighborhoods.map(n => (
@@ -664,7 +628,6 @@ function ExploreContent() {
                 </div>
               </FilterSection>
 
-              {/* Vibe */}
               <FilterSection title="Vibe">
                 <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
                   {vibes.map(v => (
@@ -676,7 +639,6 @@ function ExploreContent() {
                 </div>
               </FilterSection>
 
-              {/* Budget */}
               <FilterSection title="Budget" lastSection>
                 <div style={{ display: 'flex', gap: '6px' }}>
                   {budgetLevels.map(level => (
@@ -687,10 +649,8 @@ function ExploreContent() {
                   ))}
                 </div>
               </FilterSection>
-
             </div>
 
-            {/* Sticky footer with apply button */}
             <div style={{
               position: 'sticky', bottom: 0,
               padding: '12px 20px 20px',
@@ -719,8 +679,6 @@ function ExploreContent() {
     </div>
   );
 }
-
-// ─── Helpers ──────────────────────────────────────────────────────────────────
 
 const pillBase: React.CSSProperties = {
   display: 'flex', alignItems: 'center', gap: '6px',
