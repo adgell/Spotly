@@ -40,7 +40,7 @@ const budgetLevels = ['$', '$$', '$$$'];
 
 const neighborhoods = [
   'All Areas', 'French Concession', "Jing'an", 'The Bund',
-  'North Bund', 'Xintiandi', 'Xuhui', 'West Bund', 'Pudong', 'Old Town',
+  'North Bund', 'Xintiandi', 'Xuhui', 'Pudong', 'Old Town',
 ];
 
 const vibes = [
@@ -53,7 +53,7 @@ const validCategories = [
   'Shopping', 'Activities', 'Nature', 'Viewpoints', 'Study',
 ];
 
-const validNeighborhoods = ['All Areas', 'French Concession', "Jing'an", 'The Bund', 'North Bund', 'Xintiandi', 'Xuhui', 'West Bund', 'Pudong', 'Old Town'];
+const validNeighborhoods = ['All Areas', 'French Concession', "Jing'an", 'The Bund', 'North Bund', 'Xintiandi', 'Xuhui', 'Pudong', 'Old Town'];
 
 // ─── Inner content ────────────────────────────────────────────────────────────
 
