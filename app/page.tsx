@@ -196,15 +196,7 @@ const districts = [
     description: 'Restored shikumen architecture turned into a premium dining and lifestyle district. TX Huaihai, Haus Nowhere, and the best date night restaurants in one compact area.',
     tags: ['Date Night', 'Shopping', 'Art', 'Architecture'],
   },
-  {
-    name: 'West Bund',
-    chinese: '西岸',
-    vibe: 'art & riverside',
-    count: 12,
-    img: '/west-bund.jpg',
-    description: "Shanghai's emerging art district along the Huangpu River. Fotografiska, Long Museum, Tank Shanghai, and a riverside walk that feels nothing like the rest of the city.",
-    tags: ['Art', 'Culture', 'Outdoor', 'Date Night'],
-  },
+
   {
     name: 'Old Town',
     chinese: '老城厢',
@@ -649,7 +641,7 @@ export default function HomePage() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
             {[
               { n: '110+', label: 'Curated spots' },
-              { n: '8',    label: 'Neighbourhoods' },
+              { n: '7',    label: 'Neighbourhoods' },
               { n: '6',    label: 'Guide personas' },
               { n: '100%', label: 'In English' },
             ].map(({ n, label }) => (
