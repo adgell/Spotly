@@ -77,7 +77,7 @@ function makePinEl(hovered = false): HTMLDivElement {
 export default function MapboxMap({
   spots, selectedCategory, selectedBudget, selectedVibe,
 }: {
-  spots?: Spot[];
+  spots?: any[];
   selectedCategory?: string;
   selectedBudget?: string | null;
   selectedVibe?: string;
