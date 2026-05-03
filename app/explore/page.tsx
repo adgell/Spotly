@@ -102,9 +102,10 @@ function ExploreContent() {
   }, [showMobileFilters]);
 
   const filteredSpots = useMemo(() => spots.filter(spot => {
-    const catArr = Array.isArray(spot.category) ? spot.category : [spot.category];
+    const catArr  = Array.isArray(spot.category)     ? spot.category     : (spot.category     ? [spot.category]     : []);
+    const hoodArr = Array.isArray(spot.neighborhood) ? spot.neighborhood : (spot.neighborhood ? [spot.neighborhood] : []);
     const catMatch  = selectedCategory     === 'All'       || catArr.includes(selectedCategory);
-    const hoodMatch = selectedNeighborhood === 'All Areas' || spot.neighborhood === selectedNeighborhood;
+    const hoodMatch = selectedNeighborhood === 'All Areas' || hoodArr.includes(selectedNeighborhood);
     const budgMatch = !selectedBudget || spot.price === selectedBudget;
     const vibeMatch = selectedVibe === 'Any Vibe' || spot.vibes?.includes(selectedVibe);
     return catMatch && hoodMatch && budgMatch && vibeMatch;
