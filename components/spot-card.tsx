@@ -53,10 +53,6 @@ function getCategoryIcon(cat: string) {
   }
 }
 
-/**
- * Price badge: averageSpend if set, else tier symbol.
- * Always shown in ¥ for Chinese context.
- */
 function formatPriceBadge(price?: string, averageSpend?: string): string | null {
   if (averageSpend && averageSpend.trim()) return averageSpend.trim();
   if (!price || price === 'Free') return price === 'Free' ? 'Free' : null;
@@ -91,7 +87,6 @@ function CardImageArea({ spot }: { spot: Spot }) {
       overflow: 'hidden',
       background: '#f0efed',
     }}>
-      {/* Photo or placeholder */}
       {src ? (
         <img
           src={src}
@@ -116,14 +111,12 @@ function CardImageArea({ spot }: { spot: Spot }) {
         </div>
       )}
 
-      {/* Bottom gradient for badge readability */}
       <div style={{
         position: 'absolute', inset: 0,
         background: 'linear-gradient(to top, rgba(0,0,0,0.35) 0%, transparent 40%)',
         pointerEvents: 'none',
       }} />
 
-      {/* Prev / Next */}
       {images.length > 1 && (
         <>
           <button onClick={prev} style={navBtnStyle('left')}>‹</button>
@@ -145,7 +138,6 @@ function CardImageArea({ spot }: { spot: Spot }) {
         </>
       )}
 
-      {/* Rating */}
       {spot.rating != null && spot.rating > 0 && (
         <div style={{
           position: 'absolute', top: '10px', left: '10px', zIndex: 3,
@@ -161,7 +153,6 @@ function CardImageArea({ spot }: { spot: Spot }) {
         </div>
       )}
 
-      {/* Price badge */}
       {formatPriceBadge(spot.price, spot.averageSpend) && (
         <div style={{
           position: 'absolute', bottom: '10px', left: '10px', zIndex: 3,
@@ -213,7 +204,7 @@ export function SpotCard({ spot, isSaved, onToggleSave }: SpotCardProps) {
       overflow: 'hidden',
       display: 'flex',
       flexDirection: 'column',
-      height: '100%', // <-- FIXED: Ensures card stretches fully inside grid columns
+      height: '100%',
       transition: 'border-color 0.15s, box-shadow 0.15s, transform 0.15s',
     }}
       onMouseEnter={e => {
@@ -247,120 +238,130 @@ export function SpotCard({ spot, isSaved, onToggleSave }: SpotCardProps) {
         </button>
       </div>
 
-      {/* Card body */}
-      <div style={{ padding: '16px 18px', flex: 1, display: 'flex', flexDirection: 'column' }}>
+      {/* Card body — Layout fixed with macro gaps for unified structure */}
+      <div style={{ 
+        padding: '18px', 
+        flex: 1, 
+        display: 'flex', 
+        flexDirection: 'column', 
+        gap: '14px' 
+      }}>
 
-        {/* Name row */}
-        <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: '10px', marginBottom: '4px' }}>
-          <div style={{ minWidth: 0, flex: 1 }}>
-            <h3 style={{
-              fontSize: '16px', fontWeight: 700, color: '#0a0a0a',
-              letterSpacing: '-0.02em', lineHeight: 1.25,
-              margin: 0,
-              overflow: 'hidden', textOverflow: 'ellipsis',
-              display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical',
-            } as React.CSSProperties}>
-              {spot.name}
-            </h3>
-            {spot.chineseName && (
-              <p style={{
-                fontSize: '12px', color: 'rgba(0,0,0,0.36)', marginTop: '2px',
-                overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap',
-              }}>
-                {spot.chineseName}
-              </p>
+        {/* GROUP 1: Core Header Info */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+          {/* Name row */}
+          <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: '10px' }}>
+            <div style={{ minWidth: 0, flex: 1 }}>
+              <h3 style={{
+                fontSize: '16px', fontWeight: 700, color: '#0a0a0a',
+                letterSpacing: '-0.02em', lineHeight: 1.25,
+                margin: 0,
+                overflow: 'hidden', textOverflow: 'ellipsis',
+                display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical',
+              } as React.CSSProperties}>
+                {spot.name}
+              </h3>
+              {spot.chineseName && (
+                <p style={{
+                  fontSize: '12px', color: 'rgba(0,0,0,0.36)', marginTop: '2px',
+                  margin: 0, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap',
+                }}>
+                  {spot.chineseName}
+                </p>
+              )}
+            </div>
+            <div style={{
+              width: '32px', height: '32px', borderRadius: '50%', flexShrink: 0,
+              background: 'rgba(0,0,0,0.05)',
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+            }}>
+              <Icon style={{ width: '15px', height: '15px', color: 'rgba(0,0,0,0.5)' }} />
+            </div>
+          </div>
+
+          {/* Meta row: category pill + neighbourhood */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '6px', flexWrap: 'wrap' }}>
+            {cat && (
+              <span style={{
+                fontSize: '10px', fontWeight: 600, color: 'white',
+                background: '#111110', padding: '3px 9px', borderRadius: '20px',
+                letterSpacing: '0.01em',
+              }}>{cat}</span>
+            )}
+            {spot.neighborhood && (
+              <span style={{ fontSize: '11px', color: 'rgba(0,0,0,0.55)', fontWeight: 500 }}>
+                {spot.neighborhood}
+              </span>
             )}
           </div>
-          <div style={{
-            width: '32px', height: '32px', borderRadius: '50%', flexShrink: 0,
-            background: 'rgba(0,0,0,0.05)',
-            display: 'flex', alignItems: 'center', justifyContent: 'center',
-          }}>
-            <Icon style={{ width: '15px', height: '15px', color: 'rgba(0,0,0,0.5)' }} />
-          </div>
         </div>
 
-        {/* Meta row: category pill + neighbourhood */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginTop: '8px', marginBottom: '10px', flexWrap: 'wrap' }}>
-          {cat && (
-            <span style={{
-              fontSize: '10px', fontWeight: 600, color: 'white',
-              background: '#111110', padding: '3px 9px', borderRadius: '20px',
-              letterSpacing: '0.01em',
-            }}>{cat}</span>
-          )}
-          {spot.neighborhood && (
-            <span style={{ fontSize: '11px', color: 'rgba(0,0,0,0.55)', fontWeight: 500 }}>
-              {spot.neighborhood}
-            </span>
-          )}
-        </div>
-
-        {/* Hours */}
-        {spot.hours && (
-          <p style={{
-            fontSize: '11px', color: 'rgba(0,0,0,0.45)',
-            marginBottom: '10px',
-            overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap',
-          }}>
-            🕒 {spot.hours}
-          </p>
-        )}
-
-        {/* Description — clamped to 2 lines */}
-        {spot.description && (
-          <p style={{
-            fontSize: '12.5px', color: 'rgba(0,0,0,0.62)', lineHeight: 1.55,
-            marginBottom: '10px',
-            display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical',
-            overflow: 'hidden', textOverflow: 'ellipsis',
-          } as React.CSSProperties}>
-            {spot.description}
-          </p>
-        )}
-
-        {/* Vibe tags */}
-        {spot.vibes && spot.vibes.length > 0 && (
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '5px', marginBottom: '10px' }}>
-            {spot.vibes.slice(0, 3).map(tag => (
-              <span key={tag} style={{
-                fontSize: '10.5px', fontWeight: 500,
-                padding: '3px 9px', borderRadius: '20px',
-                background: 'rgba(0,0,0,0.06)', color: 'rgba(0,0,0,0.55)',
-              }}>
-                #{tag}
-              </span>
-            ))}
-          </div>
-        )}
-
-        {/* Local tip — accent box, 3 line clamp */}
-        {spot.localTip && (
-          <div style={{
-            background: '#faf7f2',
-            borderLeft: '2px solid #7f1d1d',
-            borderRadius: '0 10px 10px 0',
-            padding: '9px 12px', marginBottom: '10px',
-          }}>
+        {/* GROUP 2: Dynamic Content Section (Spaces out descriptions and highlights naturally) */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+          {/* Hours */}
+          {spot.hours && (
             <p style={{
-              fontSize: '9px', fontWeight: 700, letterSpacing: '0.12em',
-              textTransform: 'uppercase', color: '#7f1d1d', marginBottom: '3px',
+              fontSize: '11px', color: 'rgba(0,0,0,0.45)', margin: 0,
+              overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap',
             }}>
-              Local tip
+              🕒 {spot.hours}
             </p>
+          )}
+
+          {/* Description */}
+          {spot.description && (
             <p style={{
-              fontSize: '11px', color: 'rgba(0,0,0,0.62)',
-              lineHeight: 1.5, fontStyle: 'italic',
-              display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical',
+              fontSize: '12.5px', color: 'rgba(0,0,0,0.62)', lineHeight: 1.55, margin: 0,
+              display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical',
               overflow: 'hidden', textOverflow: 'ellipsis',
             } as React.CSSProperties}>
-              {spot.localTip}
+              {spot.description}
             </p>
-          </div>
-        )}
+          )}
 
-        {/* Action row */}
-        <div style={{ display: 'flex', gap: '6px', marginTop: 'auto' }}> {/* <-- FIXED: Replaced spacer div with marginTop: 'auto' */}
+          {/* Vibe tags */}
+          {spot.vibes && spot.vibes.length > 0 && (
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '5px' }}>
+              {spot.vibes.slice(0, 3).map(tag => (
+                <span key={tag} style={{
+                  fontSize: '10.5px', fontWeight: 500,
+                  padding: '3px 9px', borderRadius: '20px',
+                  background: 'rgba(0,0,0,0.06)', color: 'rgba(0,0,0,0.55)',
+                }}>
+                  #{tag}
+                </span>
+              ))}
+            </div>
+          )}
+
+          {/* Local tip */}
+          {spot.localTip && (
+            <div style={{
+              background: '#faf7f2',
+              borderLeft: '2px solid #7f1d1d',
+              borderRadius: '0 10px 10px 0',
+              padding: '9px 12px',
+            }}>
+              <p style={{
+                fontSize: '9px', fontWeight: 700, letterSpacing: '0.12em',
+                textTransform: 'uppercase', color: '#7f1d1d', marginTop: 0, marginBottom: '3px',
+              }}>
+                Local tip
+              </p>
+              <p style={{
+                fontSize: '11px', color: 'rgba(0,0,0,0.62)', margin: 0,
+                lineHeight: 1.5, fontStyle: 'italic',
+                display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical',
+                overflow: 'hidden', textOverflow: 'ellipsis',
+              } as React.CSSProperties}>
+                {spot.localTip}
+              </p>
+            </div>
+          )}
+        </div>
+
+        {/* Action row anchored perfectly to baseline */}
+        <div style={{ display: 'flex', gap: '6px', marginTop: 'auto', paddingTop: '4px' }}>
           {spot.tiktokUrl && (
             <a href={spot.tiktokUrl} target="_blank" rel="noopener noreferrer"
               onClick={e => e.stopPropagation()} style={actionBtnStyle('#010101', 'white')}>
