@@ -213,6 +213,7 @@ export function SpotCard({ spot, isSaved, onToggleSave }: SpotCardProps) {
       overflow: 'hidden',
       display: 'flex',
       flexDirection: 'column',
+      height: '100%', // <-- FIXED: Ensures card stretches fully inside grid columns
       transition: 'border-color 0.15s, box-shadow 0.15s, transform 0.15s',
     }}
       onMouseEnter={e => {
@@ -358,11 +359,8 @@ export function SpotCard({ spot, isSaved, onToggleSave }: SpotCardProps) {
           </div>
         )}
 
-        {/* Spacer pushes actions to bottom */}
-        <div style={{ flex: 1 }} />
-
         {/* Action row */}
-        <div style={{ display: 'flex', gap: '6px', marginTop: '10px' }}>
+        <div style={{ display: 'flex', gap: '6px', marginTop: 'auto' }}> {/* <-- FIXED: Replaced spacer div with marginTop: 'auto' */}
           {spot.tiktokUrl && (
             <a href={spot.tiktokUrl} target="_blank" rel="noopener noreferrer"
               onClick={e => e.stopPropagation()} style={actionBtnStyle('#010101', 'white')}>
