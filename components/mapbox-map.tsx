@@ -434,71 +434,76 @@ export default function MapboxMap({
             </div>
 
             {/* Description */}
-            {s.description && (
-              <p
-                className="clamp-2"
-                style={{
-                  margin: '0 0 12px', fontSize: 12.5,
-                  color: 'rgba(0,0,0,0.62)',
-                  lineHeight: 1.55,
-                }}
-              >
-                {truncate(s.description, 130)}
+         {/* Description — Completely Un-truncated */}
+         {s.description && (
+              <p style={{
+                margin: '0 0 12px 0', 
+                fontSize: '13px',
+                color: 'rgba(0, 0, 0, 0.75)',
+                lineHeight: 1.55,
+                fontFamily: 'Inter, system-ui, -apple-system, sans-serif',
+                wordBreak: 'break-word',
+                overflow: 'visible'
+              }}>
+                {s.description}
               </p>
             )}
 
             {/* Vibes */}
-            {s.vibes.length > 0 && (
-              <div style={{ display: 'flex', flexWrap: 'wrap', gap: 5, marginBottom: 12 }}>
+            {s.vibes && s.vibes.length > 0 && (
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', marginBottom: '14px' }}>
                 {s.vibes.map(v => (
                   <span key={v} style={{
-                    fontSize: 10.5, fontWeight: 500,
-                    color: 'rgba(0,0,0,0.55)',
-                    background: 'rgba(0,0,0,0.06)',
-                    padding: '3px 9px', borderRadius: 20,
-                  }}>#{v}</span>
+                    fontSize: '11px', 
+                    fontWeight: 500,
+                    color: '#1c1917',
+                    background: '#f5f5f4',
+                    padding: '3px 9px', 
+                    borderRadius: '4px',
+                    fontFamily: 'Inter, system-ui, -apple-system, sans-serif'
+                  }}>#{v.toLowerCase()}</span>
                 ))}
               </div>
             )}
 
-     {/* Clean Minimalist Local Tip Section */}
-{spot.localTip && (
-  <div style={{
-    borderLeft: '1.5px solid #d6d3d1',
-    paddingLeft: '12px',
-    marginTop: '14px',
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '3px'
-  }}>
-    <div style={{ display: 'flex', alignItems: 'center', gap: '5px', color: '#78716c' }}>
-      <span style={{
-        fontSize: '9px', 
-        fontWeight: 600, 
-        letterSpacing: '0.06em',
-        textTransform: 'uppercase',
-        fontFamily: 'Inter, system-ui, -apple-system, sans-serif'
-      }}>
-        Local Tip
-      </span>
-    </div>
-    <p style={{
-      fontSize: '12px', 
-      color: '#57534e', 
-      margin: 0,
-      lineHeight: 1.45, 
-      fontStyle: 'normal',
-      fontFamily: 'Inter, system-ui, -apple-system, sans-serif',
-      display: '-webkit-box', 
-      WebkitLineClamp: 2, 
-      WebkitBoxOrient: 'vertical',
-      overflow: 'hidden', 
-      textOverflow: 'ellipsis',
-    } as React.CSSProperties}>
-      {spot.localTip}
-    </p>
-  </div>
-)}
+            {/* Luxury Editorial Styled Local Tip — Entirely Un-truncated */}
+            {s.localTip && (
+              <div style={{
+                background: '#fdfbfc',
+                borderLeft: '2.5px solid #ef4444',
+                padding: '12px 14px',
+                borderRadius: '0 8px 8px 0',
+                marginBottom: '16px',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '6px',
+                boxShadow: 'inset 0 0 0 1px rgba(239, 68, 68, 0.04)'
+              }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '5px', color: '#ef4444' }}>
+                  <span style={{
+                    fontSize: '9px', 
+                    fontWeight: 700, 
+                    letterSpacing: '0.08em',
+                    textTransform: 'uppercase',
+                    fontFamily: 'Inter, system-ui, -apple-system, sans-serif'
+                  }}>
+                    Local Tip
+                  </span>
+                </div>
+                <p style={{
+                  fontSize: '12px', 
+                  color: '#44403c', 
+                  margin: 0,
+                  lineHeight: 1.5, 
+                  fontWeight: 450,
+                  fontFamily: 'Inter, system-ui, -apple-system, sans-serif',
+                  wordBreak: 'break-word',
+                  overflow: 'visible'
+                }}>
+                  {s.localTip}
+                </p>
+              </div>
+            )}
 
           {/* Actions */}
           <div style={{ padding: '0 18px 18px', display: 'flex', flexDirection: 'column', gap: 8 }}>
