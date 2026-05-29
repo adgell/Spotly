@@ -461,39 +461,44 @@ export default function MapboxMap({
               </div>
             )}
 
-            {/* Local tip — accent box */}
-            {s.localTip && (
-              <div style={{
-                background: '#faf7f2',
-                borderLeft: '2px solid #7f1d1d',
-                borderRadius: '0 8px 8px 0',
-                padding: '8px 12px',
-                marginBottom: 14,
-              }}>
-                <span style={{
-                  display: 'block',
-                  fontSize: 9,
-                  fontWeight: 700,
-                  textTransform: 'uppercase',
-                  letterSpacing: '0.12em',
-                  color: '#7f1d1d',
-                  marginBottom: 3,
-                }}>Local tip</span>
-                <p
-                  className="clamp-3"
-                  style={{
-                    margin: 0,
-                    fontSize: 11,
-                    color: 'rgba(0,0,0,0.62)',
-                    lineHeight: 1.5,
-                    fontStyle: 'italic',
-                  }}
-                >
-                  {truncate(s.localTip, 140)}
-                </p>
-              </div>
-            )}
-          </div>
+     {/* Clean Minimalist Local Tip Section */}
+{spot.localTip && (
+  <div style={{
+    borderLeft: '1.5px solid #d6d3d1',
+    paddingLeft: '12px',
+    marginTop: '14px',
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '3px'
+  }}>
+    <div style={{ display: 'flex', alignItems: 'center', gap: '5px', color: '#78716c' }}>
+      <span style={{
+        fontSize: '9px', 
+        fontWeight: 600, 
+        letterSpacing: '0.06em',
+        textTransform: 'uppercase',
+        fontFamily: 'Inter, system-ui, -apple-system, sans-serif'
+      }}>
+        Local Tip
+      </span>
+    </div>
+    <p style={{
+      fontSize: '12px', 
+      color: '#57534e', 
+      margin: 0,
+      lineHeight: 1.45, 
+      fontStyle: 'normal',
+      fontFamily: 'Inter, system-ui, -apple-system, sans-serif',
+      display: '-webkit-box', 
+      WebkitLineClamp: 2, 
+      WebkitBoxOrient: 'vertical',
+      overflow: 'hidden', 
+      textOverflow: 'ellipsis',
+    } as React.CSSProperties}>
+      {spot.localTip}
+    </p>
+  </div>
+)}
 
           {/* Actions */}
           <div style={{ padding: '0 18px 18px', display: 'flex', flexDirection: 'column', gap: 8 }}>
