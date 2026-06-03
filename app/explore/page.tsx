@@ -83,19 +83,22 @@ function ExploreContent() {
   const [selectedNeighborhood, setSelectedNeighborhood] = useState(initialNeighborhood);
   const [selectedVibe,         setSelectedVibe]         = useState('Any Vibe');
   
-  // --- LOCALSTORAGE PERSISTENCE FOR SAVED SPOTS (ADDED) ---
-  const [savedSpots, setSavedSpots] = useState<string[]>(() => {
-    if (typeof window !== 'undefined') {
-      const stored = localStorage.getItem('spotly_saved_places');
-      return stored ? JSON.parse(stored) : [];
-    }
-    return [];
-  });
+  // --- LOCALSTORAGE PERSISTENCE (FIXED: loads after mount) ---
+  const [savedSpots, setSavedSpots] = useState<string[]>([]);
 
+  // Load from localStorage after component mounts (client‑only)
+  useEffect(() => {
+    const stored = localStorage.getItem('spotly_saved_places');
+    if (stored) {
+      setSavedSpots(JSON.parse(stored));
+    }
+  }, []);
+
+  // Save whenever savedSpots changes
   useEffect(() => {
     localStorage.setItem('spotly_saved_places', JSON.stringify(savedSpots));
   }, [savedSpots]);
-  // -------------------------------------------------------
+  // -----------------------------------------------------------
 
   const [showMobileFilters,    setShowMobileFilters]    = useState(false);
 
@@ -119,7 +122,6 @@ function ExploreContent() {
     if (hood && validNeighborhoods.includes(hood)) {
       setSelectedNeighborhood(hood);
     } else {
-      // Category-only links (e.g. map "See more like this") must not keep a stale area filter
       setSelectedNeighborhood('All Areas');
     }
 
@@ -214,7 +216,6 @@ function ExploreContent() {
           borderBottom: '0.5px solid #ebebeb',
         }}
       >
-        {/* full-width container — NO max-width here, so contents span the entire screen */}
         <div style={{
           padding: '0 24px',
           display: 'flex', alignItems: 'center', justifyContent: 'space-between',
@@ -222,7 +223,6 @@ function ExploreContent() {
           width: '100%',
         }}>
 
-          {/* Left: back + logo */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '14px', flex: '0 0 auto' }}>
             <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: '6px', color: 'rgba(0,0,0,0.45)', textDecoration: 'none', fontSize: '13px' }}>
               <ChevronLeft style={{ width: '15px', height: '15px' }} />
@@ -237,7 +237,6 @@ function ExploreContent() {
             </Link>
           </div>
 
-          {/* Centre: active filter pill */}
           {selectedCategory !== 'All' && (
             <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '12px', color: 'rgba(0,0,0,0.5)', flex: '0 1 auto' }}>
               <span>Viewing:</span>
@@ -248,7 +247,6 @@ function ExploreContent() {
             </div>
           )}
 
-          {/* Right: tab switcher */}
           <div style={{ display: 'flex', background: '#f3f3f2', borderRadius: '10px', padding: '3px', gap: '2px', flex: '0 0 auto' }}>
             {(['browse', 'map', 'saved'] as const).map(tab => (
               <button key={tab} onClick={() => setActiveTab(tab)} style={{
