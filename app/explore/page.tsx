@@ -82,7 +82,21 @@ function ExploreContent() {
   const [selectedBudget,       setSelectedBudget]       = useState<string | null>(null);
   const [selectedNeighborhood, setSelectedNeighborhood] = useState(initialNeighborhood);
   const [selectedVibe,         setSelectedVibe]         = useState('Any Vibe');
-  const [savedSpots,           setSavedSpots]           = useState<string[]>([]);
+  
+  // --- LOCALSTORAGE PERSISTENCE FOR SAVED SPOTS (ADDED) ---
+  const [savedSpots, setSavedSpots] = useState<string[]>(() => {
+    if (typeof window !== 'undefined') {
+      const stored = localStorage.getItem('spotly_saved_places');
+      return stored ? JSON.parse(stored) : [];
+    }
+    return [];
+  });
+
+  useEffect(() => {
+    localStorage.setItem('spotly_saved_places', JSON.stringify(savedSpots));
+  }, [savedSpots]);
+  // -------------------------------------------------------
+
   const [showMobileFilters,    setShowMobileFilters]    = useState(false);
 
   useEffect(() => {
