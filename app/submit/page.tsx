@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button';
 import Navbar from '@/components/navbar';
 
 const categories = [
-  'Food', 'Cafés', 'Nightlife', 'Culture', 'Art', 'Shopping', 'Nature', 'Viewpoints', 'Wellness & Experience',
+  'Food', 'Cafés & Bakery', 'Nightlife', 'Culture', 'Activities', 'Shopping', 'Nature', 'Viewpoints', 'Study',
 ];
 
 const budgetLevels = [
