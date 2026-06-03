@@ -196,7 +196,7 @@ export default function MapboxMap({
             rating:       spot.rating ?? 0,
             images:       spot.images ?? [],
             amapUrl:      spot.amapUrl ?? '',
-            exploreUrl:   `/explore?category=${encodeURIComponent(primaryCategory)}&neighborhood=${encodeURIComponent(neigh)}`,
+            exploreUrl:   `/explore?category=${encodeURIComponent(primaryCategory)}`,
           },
           x, y,
         });

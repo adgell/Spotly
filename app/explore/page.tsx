@@ -11,6 +11,11 @@ import {
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { SpotCard, type Spot } from '@/components/spot-card';
+import {
+  spotMatchesCategory,
+  spotMatchesNeighborhood,
+  spotMatchesVibe,
+} from '@/lib/spots';
 
 const MapWithNoSSR = dynamic(() => import('@/components/mapbox-map'), {
   ssr: false,
@@ -40,7 +45,7 @@ const budgetLevels = ['$', '$$', '$$$'];
 
 const neighborhoods = [
   'All Areas', 'French Concession', "Jing'an", 'The Bund',
-  'North Bund', 'Xintiandi', 'Xuhui', 'Pudong', 'Old Town',
+  'North Bund', 'Xintiandi', 'Xuhui', 'West Bund', 'Pudong', 'Old Town',
 ];
 
 const vibes = [
@@ -53,7 +58,10 @@ const validCategories = [
   'Shopping', 'Activities', 'Nature', 'Viewpoints', 'Study',
 ];
 
-const validNeighborhoods = ['All Areas', 'French Concession', "Jing'an", 'The Bund', 'North Bund', 'Xintiandi', 'Xuhui', 'Pudong', 'Old Town'];
+const validNeighborhoods = [
+  'All Areas', 'French Concession', "Jing'an", 'The Bund', 'North Bund',
+  'Xintiandi', 'Xuhui', 'West Bund', 'Pudong', 'Old Town',
+];
 
 // ─── Inner content ────────────────────────────────────────────────────────────
 
@@ -87,8 +95,22 @@ function ExploreContent() {
   useEffect(() => {
     const cat  = searchParams.get('category');
     const hood = searchParams.get('neighborhood');
-    if (cat  && validCategories.includes(cat))     setSelectedCategory(cat);
-    if (hood && validNeighborhoods.includes(hood)) setSelectedNeighborhood(hood);
+
+    if (cat && validCategories.includes(cat)) {
+      setSelectedCategory(cat);
+    } else if (!cat) {
+      setSelectedCategory('All');
+    }
+
+    if (hood && validNeighborhoods.includes(hood)) {
+      setSelectedNeighborhood(hood);
+    } else {
+      // Category-only links (e.g. map "See more like this") must not keep a stale area filter
+      setSelectedNeighborhood('All Areas');
+    }
+
+    setSelectedBudget(null);
+    setSelectedVibe('Any Vibe');
   }, [searchParams]);
 
   // Lock body scroll when mobile filter sheet is open
@@ -102,12 +124,10 @@ function ExploreContent() {
   }, [showMobileFilters]);
 
   const filteredSpots = useMemo(() => spots.filter(spot => {
-    const catArr  = Array.isArray(spot.category)     ? spot.category     : (spot.category     ? [spot.category]     : []);
-    const hoodArr = Array.isArray(spot.neighborhood) ? spot.neighborhood : (spot.neighborhood ? [spot.neighborhood] : []);
-    const catMatch  = selectedCategory     === 'All'       || catArr.includes(selectedCategory);
-    const hoodMatch = selectedNeighborhood === 'All Areas' || hoodArr.includes(selectedNeighborhood);
+    const catMatch  = spotMatchesCategory(spot.category, selectedCategory);
+    const hoodMatch = spotMatchesNeighborhood(spot.neighborhood, selectedNeighborhood);
     const budgMatch = !selectedBudget || spot.price === selectedBudget;
-    const vibeMatch = selectedVibe === 'Any Vibe' || spot.vibes?.includes(selectedVibe);
+    const vibeMatch = spotMatchesVibe(spot.vibes, selectedVibe);
     return catMatch && hoodMatch && budgMatch && vibeMatch;
   }), [spots, selectedCategory, selectedNeighborhood, selectedBudget, selectedVibe]);
 

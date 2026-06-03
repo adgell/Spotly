@@ -1,4 +1,5 @@
 import Airtable from 'airtable';
+import { normalizeStringList } from '@/lib/spots';
 
 const base = new Airtable({ apiKey: process.env.AIRTABLE_API_KEY })
   .base(process.env.AIRTABLE_BASE_ID!);
@@ -17,11 +18,8 @@ export async function GET() {
     }
 
     const spots = records.map((r) => {
-      // Category — Airtable multi-select returns string[]
-      const categoryRaw = r.get('Category');
-      const category = Array.isArray(categoryRaw)
-        ? categoryRaw
-        : (categoryRaw ? [categoryRaw as string] : []);
+      const category = normalizeStringList(r.get('Category'));
+      const neighborhood = normalizeStringList(r.get('Neighborhood'));
 
       // Images — Airtable attachment field returns array of objects with url
       const attachmentImages = (r.get('Images') as { url: string }[] | undefined) ?? [];
@@ -42,7 +40,7 @@ export async function GET() {
         name:         r.get('Name') as string,
         chineseName:  r.get('Chinese Name') as string,
         category,
-        neighborhood: r.get('Neighborhood') as string,
+        neighborhood,
         address:      r.get('Address') as string,
         price:        r.get('Budget') as string,
         averageSpend: r.get('Average spend per person') as string,
