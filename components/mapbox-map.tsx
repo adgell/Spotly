@@ -4,6 +4,13 @@ import { useEffect, useMemo, useRef, useState, useCallback } from 'react';
 import mapboxgl from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { ChevronLeft, ChevronRight, Navigation, Star } from 'lucide-react';
+import {
+  ACCENT,
+  FONT,
+  ExpandableText,
+  SectionDivider,
+  MinimalHashtags,
+} from '@/components/spot-card';
 
 type Spot = {
   id: string | number;
@@ -45,15 +52,6 @@ type CardState = { spot: CardSpot; x: number; y: number };
 
 const CARD_W = 300;
 const CARD_H = 520;
-
-const ACCENT = {
-  black: '#111110',
-  red: '#7f1d1d',
-  redTint: '#faf6f6',
-  border: '#e7e5e4',
-  muted: '#78716c',
-  body: '#44403c',
-} as const;
 
 // truncate long text gracefully
 function truncate(s: string, max: number) {
@@ -271,7 +269,9 @@ export default function MapboxMap({
             borderRadius: '20px',
             overflow:     'auto',
             boxShadow:    '0 16px 48px rgba(0,0,0,0.24), 0 2px 8px rgba(0,0,0,0.06)',
-            fontFamily:   'Inter, system-ui, -apple-system, sans-serif',
+            fontFamily:   FONT,
+            display:      'flex',
+            flexDirection:'column',
             animation:    'cardIn 0.18s cubic-bezier(0.16,1,0.3,1)',
           }}
         >
@@ -389,119 +389,100 @@ export default function MapboxMap({
 
           {/* Body */}
           <div style={{
-            padding: '16px 18px 18px',
+            padding: '14px 16px 16px',
+            flex: 1,
             display: 'flex',
             flexDirection: 'column',
-            gap: '14px',
+            minHeight: 0,
           }}>
-            <div>
+            <header style={{ flexShrink: 0, paddingRight: 24 }}>
               <h3 style={{
                 margin: 0,
-                fontSize: 17,
-                fontWeight: 700,
+                fontSize: 16,
+                fontWeight: 600,
                 color: ACCENT.black,
-                lineHeight: 1.25,
-                letterSpacing: '-0.02em',
-                paddingRight: 28,
+                letterSpacing: '-0.03em',
+                lineHeight: 1.2,
+                fontFamily: FONT,
               }}>
                 {s.name}
               </h3>
               {s.chineseName && (
-                <p style={{ margin: '4px 0 0', fontSize: 11, color: ACCENT.muted }}>
+                <p style={{ margin: '3px 0 0', fontSize: 11, color: ACCENT.muted, fontFamily: FONT }}>
                   {s.chineseName}
                 </p>
               )}
-            </div>
-
-            <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
-              <span style={{
-                fontSize: 10, fontWeight: 600, color: '#fff',
-                background: ACCENT.black, padding: '4px 10px', borderRadius: 20,
+              <div style={{
+                display: 'flex',
+                alignItems: 'center',
+                flexWrap: 'wrap',
+                gap: '10px',
+                marginTop: '6px',
               }}>
-                {s.category}
-              </span>
-              {s.neighborhood && (
-                <span style={{ fontSize: 12, color: ACCENT.muted, fontWeight: 500 }}>
-                  {s.neighborhood}
-                </span>
-              )}
-              {priceLabel && (
-                <>
-                  <span style={{ color: '#d6d3d1', fontSize: 10 }}>•</span>
-                  <span style={{ fontSize: 12, color: ACCENT.muted, fontWeight: 500 }}>
+                {s.category && (
+                  <span style={{
+                    fontSize: '10px',
+                    fontWeight: 600,
+                    letterSpacing: '0.08em',
+                    textTransform: 'uppercase',
+                    color: ACCENT.muted,
+                    fontFamily: FONT,
+                  }}>
+                    {s.category}
+                  </span>
+                )}
+                {s.neighborhood && (
+                  <span style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '4px',
+                    fontSize: '12px',
+                    fontWeight: 500,
+                    color: ACCENT.body,
+                    fontFamily: FONT,
+                  }}>
+                    <Navigation style={{ width: '11px', height: '11px', color: ACCENT.red }} strokeWidth={2} />
+                    {s.neighborhood}
+                  </span>
+                )}
+                {priceLabel && (
+                  <span style={{ fontSize: '11px', color: ACCENT.muted, fontFamily: FONT }}>
                     {priceLabel}
                   </span>
-                </>
+                )}
+              </div>
+            </header>
+
+            <SectionDivider />
+
+            <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '12px', minHeight: 0 }}>
+              {s.description && <ExpandableText text={s.description} lines={3} />}
+              {s.vibes.length > 0 && <MinimalHashtags tags={s.vibes} />}
+              {s.localTip && (
+                <div>
+                  <p style={{
+                    margin: '0 0 6px',
+                    fontSize: '10px',
+                    fontWeight: 600,
+                    letterSpacing: '0.1em',
+                    textTransform: 'uppercase',
+                    color: ACCENT.red,
+                    fontFamily: FONT,
+                  }}>
+                    Local tip
+                  </p>
+                  <ExpandableText text={s.localTip} lines={2} fontSize={12.5} />
+                </div>
               )}
             </div>
 
-            {s.description && (
-              <p style={{
-                margin: 0,
-                fontSize: 13.5,
-                color: ACCENT.body,
-                lineHeight: 1.6,
-                wordBreak: 'break-word',
-              }}>
-                {s.description}
-              </p>
-            )}
-
-            {s.vibes.length > 0 && (
-              <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
-                {s.vibes.map(v => (
-                  <span key={v} style={{
-                    fontSize: 11,
-                    fontWeight: 500,
-                    color: ACCENT.black,
-                    background: '#f5f5f4',
-                    padding: '5px 10px',
-                    borderRadius: 20,
-                    border: `1px solid ${ACCENT.border}`,
-                  }}>
-                    #{v}
-                  </span>
-                ))}
-              </div>
-            )}
-
-            {s.localTip && (
-              <div style={{
-                background: ACCENT.redTint,
-                borderLeft: `3px solid ${ACCENT.red}`,
-                borderRadius: '0 10px 10px 0',
-                padding: '12px 14px',
-                display: 'flex',
-                flexDirection: 'column',
-                gap: 6,
-              }}>
-                <span style={{
-                  fontSize: 10,
-                  fontWeight: 700,
-                  letterSpacing: '0.08em',
-                  textTransform: 'uppercase',
-                  color: ACCENT.red,
-                }}>
-                  Local tip
-                </span>
-                <p style={{
-                  margin: 0,
-                  fontSize: 12.5,
-                  color: ACCENT.body,
-                  lineHeight: 1.55,
-                  wordBreak: 'break-word',
-                }}>
-                  {s.localTip}
-                </p>
-              </div>
-            )}
-
             <div style={{
+              flexShrink: 0,
+              marginTop: 'auto',
+              paddingTop: '14px',
               display: 'flex',
               flexDirection: 'column',
-              gap: 8,
-              paddingTop: 12,
-              borderTop: `1px solid ${ACCENT.border}`,
+              gap: '8px',
             }}>
               {s.amapUrl && (
                 <a
@@ -510,30 +491,36 @@ export default function MapboxMap({
                   rel="noopener noreferrer"
                   onClick={(e) => e.stopPropagation()}
                   style={{
-                    display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6,
-                    background: ACCENT.black, color: '#fff',
-                    fontSize: 12, fontWeight: 600,
-                    padding: '12px', borderRadius: 10,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: '8px',
+                    background: ACCENT.black,
+                    color: '#fff',
+                    fontSize: '13px',
+                    fontWeight: 600,
+                    padding: '11px',
+                    borderRadius: '10px',
                     textDecoration: 'none',
+                    fontFamily: FONT,
                   }}
                 >
-                  <Navigation size={13} />
-                  Navigate on Amap
+                  <Navigation size={14} strokeWidth={2} />
+                  Navigate
                 </a>
               )}
               <a
                 href={s.exploreUrl}
                 onClick={(e) => e.stopPropagation()}
                 style={{
-                  display: 'block', textAlign: 'center',
-                  background: '#f5f5f4',
-                  color: ACCENT.black,
-                  fontSize: 12,
-                  fontWeight: 600,
-                  padding: '10px',
-                  borderRadius: 10,
+                  display: 'block',
+                  textAlign: 'center',
+                  fontSize: '12px',
+                  fontWeight: 500,
+                  color: ACCENT.body,
+                  padding: '8px',
                   textDecoration: 'none',
-                  border: `1px solid ${ACCENT.border}`,
+                  fontFamily: FONT,
                 }}
               >
                 See more like this →
