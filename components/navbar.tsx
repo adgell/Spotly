@@ -33,7 +33,7 @@ export default function Navbar() {
 
           {/* Desktop auth buttons - right */}
           <div className="hidden md:flex items-center gap-2">
-            <Button variant="ghost" size="sm" className="text-sm text-black/60 hover:text-black hover:bg-black/5 px-4 h-9 rounded-full transition-all">Sign In</Button>
+        
             <Link href="/explore">
               <Button size="sm" className="text-sm bg-black text-white hover:bg-black/75 px-5 h-9 rounded-full transition-all shadow-sm hover:shadow-md">Get Started →</Button>
             </Link>
@@ -58,7 +58,6 @@ export default function Navbar() {
             <Link href="/explore" className="block text-sm text-black/60 py-2 hover:text-black" onClick={() => setMobileMenuOpen(false)}>Explore</Link>
             <Link href="/submit" className="block text-sm text-black/60 py-2 hover:text-black" onClick={() => setMobileMenuOpen(false)}>Submit a Spot</Link>
             <div className="flex gap-2 pt-2">
-              <Button variant="ghost" size="sm" className="flex-1">Sign In</Button>
               <Link href="/explore" className="flex-1" onClick={() => setMobileMenuOpen(false)}>
                 <Button className="w-full bg-black text-white hover:bg-black/90" size="sm">Get Started</Button>
               </Link>
