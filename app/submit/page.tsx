@@ -18,7 +18,7 @@ const budgetLevels = [
 
 const neighborhoods = [
   'French Concession', "Jing'an", 'The Bund', 'North Bund',
-  'Xintiandi', 'Xuhui', 'West Bund', 'Pudong', 'Old Town', 'Other',
+  'Xintiandi', 'Xuhui', 'Pudong', 'Old Town', 'Other',
 ];
 
 export default function SubmitSpotPage() {
@@ -222,16 +222,7 @@ export default function SubmitSpotPage() {
                     placeholder="First name or nickname"
                     className="w-full px-4 py-3 rounded-lg bg-card border border-border text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary" />
                 </div>
-                <div>
-                  <label className="block text-sm font-medium mb-2">Email *</label>
-                  <input type="email" required value={formData.submitterEmail} onChange={e => updateField('submitterEmail', e.target.value)}
-                    placeholder="We will notify you when it is live"
-                    className="w-full px-4 py-3 rounded-lg bg-card border border-border text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary" />
-                </div>
               </div>
-              <p className="text-xs text-muted-foreground">
-                Your email is only used to notify you about your submission. We will never share it.
-              </p>
             </div>
 
             {/* Submit */}
