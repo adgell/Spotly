@@ -4,13 +4,7 @@ import { useEffect, useMemo, useRef, useState, useCallback } from 'react';
 import mapboxgl from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { ChevronLeft, ChevronRight, Navigation, Star } from 'lucide-react';
-import {
-  ACCENT,
-  FONT,
-  ExpandableText,
-  SectionDivider,
-  MinimalHashtags,
-} from '@/components/spot-card';
+import { FONT, SpotCardBody } from '@/components/spot-card';
 
 type Spot = {
   id: string | number;
@@ -51,7 +45,7 @@ type CardSpot = {
 type CardState = { spot: CardSpot; x: number; y: number };
 
 const CARD_W = 300;
-const CARD_H = 520;
+const CARD_MAX_H = 560;
 
 // truncate long text gracefully
 function truncate(s: string, max: number) {
@@ -118,9 +112,9 @@ export default function MapboxMap({
   const getCardDimensions = useCallback(() => {
     const wrap = wrapperRef.current;
     const contW = wrap?.clientWidth ?? CARD_W;
-    const contH = wrap?.clientHeight ?? CARD_H;
+    const contH = wrap?.clientHeight ?? CARD_MAX_H;
     const width = Math.min(CARD_W, Math.max(260, contW - 24));
-    const height = Math.min(CARD_H, Math.max(360, contH - 24));
+    const height = Math.min(CARD_MAX_H, Math.max(360, contH - 24));
     return { width, height };
   }, []);
 
@@ -319,7 +313,7 @@ export default function MapboxMap({
           )}
 
           {/* Image carousel */}
-          <div style={{ position: 'relative', width: '100%', height: 150, background: '#f0efed', overflow: 'hidden' }}>
+          <div style={{ position: 'relative', width: '100%', height: 150, background: '#f0efed', overflow: 'hidden', flexShrink: 0 }}>
             {currentImage ? (
               <img
                 key={currentImage.url}
@@ -387,146 +381,20 @@ export default function MapboxMap({
             )}
           </div>
 
-          {/* Body */}
-          <div style={{
-            padding: '14px 16px 16px',
-            flex: 1,
-            display: 'flex',
-            flexDirection: 'column',
-            minHeight: 0,
-          }}>
-            <header style={{ flexShrink: 0, paddingRight: 24 }}>
-              <h3 style={{
-                margin: 0,
-                fontSize: 16,
-                fontWeight: 600,
-                color: ACCENT.black,
-                letterSpacing: '-0.03em',
-                lineHeight: 1.2,
-                fontFamily: FONT,
-              }}>
-                {s.name}
-              </h3>
-              {s.chineseName && (
-                <p style={{ margin: '3px 0 0', fontSize: 11, color: ACCENT.muted, fontFamily: FONT }}>
-                  {s.chineseName}
-                </p>
-              )}
-              <div style={{
-                display: 'flex',
-                alignItems: 'center',
-                flexWrap: 'wrap',
-                gap: '10px',
-                marginTop: '6px',
-              }}>
-                {s.category && (
-                  <span style={{
-                    fontSize: '10px',
-                    fontWeight: 600,
-                    letterSpacing: '0.08em',
-                    textTransform: 'uppercase',
-                    color: ACCENT.muted,
-                    fontFamily: FONT,
-                  }}>
-                    {s.category}
-                  </span>
-                )}
-                {s.neighborhood && (
-                  <span style={{
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    gap: '4px',
-                    fontSize: '12px',
-                    fontWeight: 500,
-                    color: ACCENT.body,
-                    fontFamily: FONT,
-                  }}>
-                    <Navigation style={{ width: '11px', height: '11px', color: ACCENT.red }} strokeWidth={2} />
-                    {s.neighborhood}
-                  </span>
-                )}
-                {priceLabel && (
-                  <span style={{ fontSize: '11px', color: ACCENT.muted, fontFamily: FONT }}>
-                    {priceLabel}
-                  </span>
-                )}
-              </div>
-            </header>
-
-            <SectionDivider />
-
-            <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '12px', minHeight: 0 }}>
-              {s.description && <ExpandableText text={s.description} lines={3} />}
-              {s.vibes.length > 0 && <MinimalHashtags tags={s.vibes} />}
-              {s.localTip && (
-                <div>
-                  <p style={{
-                    margin: '0 0 6px',
-                    fontSize: '10px',
-                    fontWeight: 600,
-                    letterSpacing: '0.1em',
-                    textTransform: 'uppercase',
-                    color: ACCENT.red,
-                    fontFamily: FONT,
-                  }}>
-                    Local tip
-                  </p>
-                  <ExpandableText text={s.localTip} lines={2} fontSize={12.5} />
-                </div>
-              )}
-            </div>
-
-            <div style={{
-              flexShrink: 0,
-              marginTop: 'auto',
-              paddingTop: '14px',
-              display: 'flex',
-              flexDirection: 'column',
-              gap: '8px',
-            }}>
-              {s.amapUrl && (
-                <a
-                  href={s.amapUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={(e) => e.stopPropagation()}
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    gap: '8px',
-                    background: ACCENT.black,
-                    color: '#fff',
-                    fontSize: '13px',
-                    fontWeight: 600,
-                    padding: '11px',
-                    borderRadius: '10px',
-                    textDecoration: 'none',
-                    fontFamily: FONT,
-                  }}
-                >
-                  <Navigation size={14} strokeWidth={2} />
-                  Navigate
-                </a>
-              )}
-              <a
-                href={s.exploreUrl}
-                onClick={(e) => e.stopPropagation()}
-                style={{
-                  display: 'block',
-                  textAlign: 'center',
-                  fontSize: '12px',
-                  fontWeight: 500,
-                  color: ACCENT.body,
-                  padding: '8px',
-                  textDecoration: 'none',
-                  fontFamily: FONT,
-                }}
-              >
-                See more like this →
-              </a>
-            </div>
-          </div>
+          <SpotCardBody
+            name={s.name}
+            chineseName={s.chineseName}
+            category={s.category}
+            neighborhood={s.neighborhood}
+            priceLabel={priceLabel}
+            description={s.description}
+            vibes={s.vibes}
+            localTip={s.localTip}
+            amapUrl={s.amapUrl}
+            exploreUrl={s.exploreUrl}
+            headerPaddingRight={28}
+            pinActions={false}
+          />
         </div>
       )}
     </div>
