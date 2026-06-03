@@ -44,7 +44,16 @@ type CardSpot = {
 type CardState = { spot: CardSpot; x: number; y: number };
 
 const CARD_W = 300;
-const CARD_H = 480;
+const CARD_H = 520;
+
+const ACCENT = {
+  black: '#111110',
+  red: '#7f1d1d',
+  redTint: '#faf6f6',
+  border: '#e7e5e4',
+  muted: '#78716c',
+  body: '#44403c',
+} as const;
 
 // truncate long text gracefully
 function truncate(s: string, max: number) {
@@ -379,167 +388,157 @@ export default function MapboxMap({
           </div>
 
           {/* Body */}
-          <div style={{ padding: '16px 18px 0' }}>
-
-            {/* Name — biggest, boldest element */}
-            <h3 style={{
-              margin: 0,
-              fontSize: 17,
-              fontWeight: 700,
-              color: '#0a0a0a',
-              lineHeight: 1.2,
-              letterSpacing: '-0.025em',
-              paddingRight: 32,
-            }}>
-              {s.name}
-            </h3>
-
-            {/* Chinese name (if exists) — small, subtle */}
-            {s.chineseName && (
-              <p style={{
-                margin: '2px 0 0',
-                fontSize: 11,
-                color: 'rgba(0,0,0,0.36)',
-                fontWeight: 400,
+          <div style={{
+            padding: '16px 18px 18px',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '14px',
+          }}>
+            <div>
+              <h3 style={{
+                margin: 0,
+                fontSize: 17,
+                fontWeight: 700,
+                color: ACCENT.black,
+                lineHeight: 1.25,
+                letterSpacing: '-0.02em',
+                paddingRight: 28,
               }}>
-                {s.chineseName}
-              </p>
-            )}
+                {s.name}
+              </h3>
+              {s.chineseName && (
+                <p style={{ margin: '4px 0 0', fontSize: 11, color: ACCENT.muted }}>
+                  {s.chineseName}
+                </p>
+              )}
+            </div>
 
-            {/* Meta row: category + neighborhood + price */}
-            <div style={{
-              display: 'flex', alignItems: 'center', gap: 6, flexWrap: 'wrap',
-              marginTop: 10, marginBottom: 12,
-            }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
               <span style={{
                 fontSize: 10, fontWeight: 600, color: '#fff',
-                background: '#111110', padding: '3px 10px', borderRadius: 20,
-                letterSpacing: '0.01em',
+                background: ACCENT.black, padding: '4px 10px', borderRadius: 20,
               }}>
                 {s.category}
               </span>
               {s.neighborhood && (
-                <span style={{ fontSize: 11, color: 'rgba(0,0,0,0.55)', fontWeight: 500 }}>
+                <span style={{ fontSize: 12, color: ACCENT.muted, fontWeight: 500 }}>
                   {s.neighborhood}
                 </span>
               )}
               {priceLabel && (
                 <>
-                  <span style={{ color: 'rgba(0,0,0,0.2)', fontSize: 9 }}>•</span>
-                  <span style={{ fontSize: 11, color: 'rgba(0,0,0,0.55)', fontWeight: 500 }}>
+                  <span style={{ color: '#d6d3d1', fontSize: 10 }}>•</span>
+                  <span style={{ fontSize: 12, color: ACCENT.muted, fontWeight: 500 }}>
                     {priceLabel}
                   </span>
                 </>
               )}
             </div>
 
-            {/* Description */}
-         {/* Description — Completely Un-truncated */}
-         {s.description && (
+            {s.description && (
               <p style={{
-                margin: '0 0 12px 0', 
-                fontSize: '13px',
-                color: 'rgba(0, 0, 0, 0.75)',
-                lineHeight: 1.55,
-                fontFamily: 'Inter, system-ui, -apple-system, sans-serif',
+                margin: 0,
+                fontSize: 13.5,
+                color: ACCENT.body,
+                lineHeight: 1.6,
                 wordBreak: 'break-word',
-                overflow: 'visible'
               }}>
                 {s.description}
               </p>
             )}
 
-            {/* Vibes */}
-            {s.vibes && s.vibes.length > 0 && (
-              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', marginBottom: '14px' }}>
+            {s.vibes.length > 0 && (
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
                 {s.vibes.map(v => (
                   <span key={v} style={{
-                    fontSize: '11px', 
+                    fontSize: 11,
                     fontWeight: 500,
-                    color: '#1c1917',
+                    color: ACCENT.black,
                     background: '#f5f5f4',
-                    padding: '3px 9px', 
-                    borderRadius: '4px',
-                    fontFamily: 'Inter, system-ui, -apple-system, sans-serif'
-                  }}>#{v.toLowerCase()}</span>
+                    padding: '5px 10px',
+                    borderRadius: 20,
+                    border: `1px solid ${ACCENT.border}`,
+                  }}>
+                    #{v}
+                  </span>
                 ))}
               </div>
             )}
 
-            {/* Luxury Editorial Styled Local Tip — Entirely Un-truncated */}
             {s.localTip && (
               <div style={{
-                background: '#fdfbfc',
-                borderLeft: '2.5px solid #ef4444',
+                background: ACCENT.redTint,
+                borderLeft: `3px solid ${ACCENT.red}`,
+                borderRadius: '0 10px 10px 0',
                 padding: '12px 14px',
-                borderRadius: '0 8px 8px 0',
-                marginBottom: '16px',
                 display: 'flex',
                 flexDirection: 'column',
-                gap: '6px',
-                boxShadow: 'inset 0 0 0 1px rgba(239, 68, 68, 0.04)'
+                gap: 6,
               }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '5px', color: '#ef4444' }}>
-                  <span style={{
-                    fontSize: '9px', 
-                    fontWeight: 700, 
-                    letterSpacing: '0.08em',
-                    textTransform: 'uppercase',
-                    fontFamily: 'Inter, system-ui, -apple-system, sans-serif'
-                  }}>
-                    Local Tip
-                  </span>
-                </div>
+                <span style={{
+                  fontSize: 10,
+                  fontWeight: 700,
+                  letterSpacing: '0.08em',
+                  textTransform: 'uppercase',
+                  color: ACCENT.red,
+                }}>
+                  Local tip
+                </span>
                 <p style={{
-                  fontSize: '12px', 
-                  color: '#44403c', 
                   margin: 0,
-                  lineHeight: 1.5, 
-                  fontWeight: 450,
-                  fontFamily: 'Inter, system-ui, -apple-system, sans-serif',
+                  fontSize: 12.5,
+                  color: ACCENT.body,
+                  lineHeight: 1.55,
                   wordBreak: 'break-word',
-                  overflow: 'visible'
                 }}>
                   {s.localTip}
                 </p>
               </div>
             )}
 
-          {/* Actions */}
-          <div style={{ padding: '0 18px 18px', display: 'flex', flexDirection: 'column', gap: 8 }}>
-            {s.amapUrl && (
+            <div style={{
+              display: 'flex',
+              flexDirection: 'column',
+              gap: 8,
+              paddingTop: 12,
+              borderTop: `1px solid ${ACCENT.border}`,
+            }}>
+              {s.amapUrl && (
+                <a
+                  href={s.amapUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={(e) => e.stopPropagation()}
+                  style={{
+                    display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6,
+                    background: ACCENT.black, color: '#fff',
+                    fontSize: 12, fontWeight: 600,
+                    padding: '12px', borderRadius: 10,
+                    textDecoration: 'none',
+                  }}
+                >
+                  <Navigation size={13} />
+                  Navigate on Amap
+                </a>
+              )}
               <a
-                href={s.amapUrl}
-                target="_blank"
-                rel="noopener noreferrer"
+                href={s.exploreUrl}
                 onClick={(e) => e.stopPropagation()}
                 style={{
-                  display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6,
-                  background: '#111110', color: '#fff',
-                  fontSize: 12, fontWeight: 600,
-                  padding: '11px', borderRadius: 11,
+                  display: 'block', textAlign: 'center',
+                  background: '#f5f5f4',
+                  color: ACCENT.black,
+                  fontSize: 12,
+                  fontWeight: 600,
+                  padding: '10px',
+                  borderRadius: 10,
                   textDecoration: 'none',
-                  fontFamily: 'Inter, system-ui, sans-serif',
-                  letterSpacing: '0.01em',
+                  border: `1px solid ${ACCENT.border}`,
                 }}
               >
-                <Navigation size={13} />
-                Navigate on Amap
+                See more like this →
               </a>
-            )}
-            <a
-              href={s.exploreUrl}
-              onClick={(e) => e.stopPropagation()}
-              style={{
-                display: 'block', textAlign: 'center',
-                background: 'rgba(0,0,0,0.05)', color: 'rgba(0,0,0,0.7)',
-                fontSize: 11.5, fontWeight: 600,
-                padding: '9px', borderRadius: 10,
-                textDecoration: 'none',
-              }}
-            >
-              See more like this →
-            </a>
+            </div>
           </div>
         </div>
       )}

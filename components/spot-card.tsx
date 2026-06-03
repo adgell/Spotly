@@ -1,25 +1,31 @@
 'use client';
 
 /**
- * SpotCard — shared card component used on both the landing page map section
- * and the explore page browse grid. Minimalist, premium, and clean.
+ * SpotCard — shared card for explore browse grid (and anywhere else).
  */
 
 import { useState } from 'react';
 import {
   MapPin, Star, Coffee, Utensils, Wine, Music, ShoppingBag,
   Trees, Eye, Bookmark, BookmarkCheck, Navigation,
-  Activity, BookOpen, Sparkles
+  Activity, BookOpen, Sparkles,
 } from 'lucide-react';
 
-// ─── Types ────────────────────────────────────────────────────────────────────
+const ACCENT = {
+  black: '#111110',
+  red: '#7f1d1d',
+  redTint: '#faf6f6',
+  border: '#e7e5e4',
+  muted: '#78716c',
+  body: '#44403c',
+} as const;
 
 export type Spot = {
   id: string;
   name: string;
   chineseName?: string;
   category: string | string[];
-  neighborhood: string;
+  neighborhood: string | string[];
   address?: string;
   price?: string;
   averageSpend?: string;
@@ -35,8 +41,6 @@ export type Spot = {
   rednoteUrl?: string;
   images?: { url: string }[];
 };
-
-// ─── Helpers ─────────────────────────────────────────────────────────────────
 
 function getCategoryIcon(cat: string) {
   switch (cat) {
@@ -64,7 +68,11 @@ function getFirstCategory(spot: Spot): string {
   return spot.category ?? '';
 }
 
-// ─── Image area ──────────────────────────────────────────────────────────────
+function formatNeighborhood(neighborhood?: string | string[]): string {
+  if (!neighborhood) return '';
+  if (Array.isArray(neighborhood)) return neighborhood[0] ?? '';
+  return neighborhood;
+}
 
 function CardImageArea({ spot }: { spot: Spot }) {
   const images = spot.images ?? [];
@@ -83,9 +91,8 @@ function CardImageArea({ spot }: { spot: Spot }) {
 
   return (
     <div style={{
-      position: 'relative', width: '100%', height: 240,
-      overflow: 'hidden',
-      background: '#f5f5f4',
+      position: 'relative', width: '100%', height: 220,
+      overflow: 'hidden', background: '#f5f5f4',
     }}>
       {src ? (
         <img
@@ -94,8 +101,7 @@ function CardImageArea({ spot }: { spot: Spot }) {
           style={{
             position: 'absolute', inset: 0,
             width: '100%', height: '100%',
-            objectFit: 'cover',
-            objectPosition: 'center 70%',
+            objectFit: 'cover', objectPosition: 'center 70%',
             display: 'block',
           }}
         />
@@ -103,10 +109,8 @@ function CardImageArea({ spot }: { spot: Spot }) {
         <div style={{
           position: 'absolute', inset: 0,
           display: 'flex', alignItems: 'center', justifyContent: 'center',
-          color: '#a8a29e', fontSize: '11px',
+          color: ACCENT.muted, fontSize: '11px',
           fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase',
-          background: '#f5f5f4',
-          fontFamily: 'Inter, system-ui, sans-serif',
         }}>
           {getFirstCategory(spot) || 'Spot'}
         </div>
@@ -114,7 +118,7 @@ function CardImageArea({ spot }: { spot: Spot }) {
 
       <div style={{
         position: 'absolute', inset: 0,
-        background: 'linear-gradient(to top, rgba(0,0,0,0.2) 0%, transparent 40%)',
+        background: 'linear-gradient(to top, rgba(0,0,0,0.25) 0%, transparent 45%)',
         pointerEvents: 'none',
       }} />
 
@@ -131,7 +135,7 @@ function CardImageArea({ spot }: { spot: Spot }) {
               <div key={i} style={{
                 width: i === idx ? '12px' : '4px',
                 height: '4px', borderRadius: '2px',
-                background: i === idx ? 'white' : 'rgba(255,255,255,0.4)',
+                background: i === idx ? 'white' : 'rgba(255,255,255,0.45)',
                 transition: 'width 0.2s',
               }} />
             ))}
@@ -142,13 +146,13 @@ function CardImageArea({ spot }: { spot: Spot }) {
       {spot.rating != null && spot.rating > 0 && (
         <div style={{
           position: 'absolute', top: '12px', left: '12px', zIndex: 3,
-          background: 'rgba(255,255,255,0.9)', backdropFilter: 'blur(8px)',
-          borderRadius: '30px', padding: '4px 8px',
-          display: 'flex', alignItems: 'center', gap: '3px',
-          boxShadow: '0 2px 8px rgba(0,0,0,0.04)',
+          background: 'rgba(255,255,255,0.95)', backdropFilter: 'blur(8px)',
+          borderRadius: '20px', padding: '4px 9px',
+          display: 'flex', alignItems: 'center', gap: '4px',
+          boxShadow: '0 2px 8px rgba(0,0,0,0.06)',
         }}>
-          <Star style={{ width: '10px', height: '10px', fill: '#eab308', color: '#eab308' }} />
-          <span style={{ fontSize: '11px', fontWeight: 600, color: '#1c1917', fontFamily: 'Inter, system-ui, sans-serif' }}>
+          <Star style={{ width: '11px', height: '11px', fill: '#eab308', color: '#eab308' }} />
+          <span style={{ fontSize: '11px', fontWeight: 600, color: ACCENT.black }}>
             {spot.rating.toFixed(1)}
           </span>
         </div>
@@ -157,10 +161,10 @@ function CardImageArea({ spot }: { spot: Spot }) {
       {formatPriceBadge(spot.price, spot.averageSpend) && (
         <div style={{
           position: 'absolute', bottom: '12px', left: '12px', zIndex: 3,
-          background: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(8px)',
-          borderRadius: '30px', padding: '4px 9px',
+          background: 'rgba(17,17,16,0.75)', backdropFilter: 'blur(8px)',
+          borderRadius: '20px', padding: '4px 10px',
         }}>
-          <span style={{ fontSize: '11px', fontWeight: 500, color: 'white', fontFamily: 'Inter, system-ui, sans-serif' }}>
+          <span style={{ fontSize: '11px', fontWeight: 600, color: 'white' }}>
             {formatPriceBadge(spot.price, spot.averageSpend)}
           </span>
         </div>
@@ -175,16 +179,15 @@ function navBtnStyle(side: 'left' | 'right'): React.CSSProperties {
     top: '50%', transform: 'translateY(-50%)',
     [side]: '8px',
     zIndex: 4,
-    width: '26px', height: '26px', borderRadius: '50%',
-    background: 'rgba(255,255,255,0.9)', backdropFilter: 'blur(4px)',
+    width: '28px', height: '28px', borderRadius: '50%',
+    background: 'rgba(255,255,255,0.95)',
     border: 'none',
-    color: '#1c1917', fontSize: '16px',
+    color: ACCENT.black, fontSize: '16px',
     display: 'flex', alignItems: 'center', justifyContent: 'center',
-    cursor: 'pointer', lineHeight: 1, boxShadow: '0 2px 6px rgba(0,0,0,0.05)',
+    cursor: 'pointer', lineHeight: 1,
+    boxShadow: '0 2px 6px rgba(0,0,0,0.08)',
   };
 }
-
-// ─── SpotCard ─────────────────────────────────────────────────────────────────
 
 type SpotCardProps = {
   spot: Spot;
@@ -194,195 +197,199 @@ type SpotCardProps = {
 
 export function SpotCard({ spot, isSaved, onToggleSave }: SpotCardProps) {
   const cat = getFirstCategory(spot);
+  const hood = formatNeighborhood(spot.neighborhood);
   const Icon = getCategoryIcon(cat);
 
   return (
-    <div style={{
-      background: 'white',
-      borderRadius: '16px',
-      border: '1px solid #e7e5e4',
-      overflow: 'hidden',
-      display: 'flex',
-      flexDirection: 'column',
-      height: '100%',
-      fontFamily: 'Inter, system-ui, -apple-system, sans-serif',
-      transition: 'all 0.2s ease',
-    }}
+    <div
+      style={{
+        background: 'white',
+        borderRadius: '16px',
+        border: `1px solid ${ACCENT.border}`,
+        overflow: 'hidden',
+        display: 'flex',
+        flexDirection: 'column',
+        height: '100%',
+        fontFamily: 'Inter, system-ui, -apple-system, sans-serif',
+        transition: 'border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease',
+      }}
       onMouseEnter={e => {
-        (e.currentTarget as HTMLDivElement).style.borderColor = '#d6d3d1';
-        (e.currentTarget as HTMLDivElement).style.transform = 'translateY(-2px)';
-        (e.currentTarget as HTMLDivElement).style.boxShadow = '0 12px 24px rgba(0,0,0,0.04)';
+        const el = e.currentTarget as HTMLDivElement;
+        el.style.borderColor = '#d6d3d1';
+        el.style.transform = 'translateY(-2px)';
+        el.style.boxShadow = '0 12px 28px rgba(0,0,0,0.06)';
       }}
       onMouseLeave={e => {
-        (e.currentTarget as HTMLDivElement).style.borderColor = '#e7e5e4';
-        (e.currentTarget as HTMLDivElement).style.transform = 'translateY(0)';
-        (e.currentTarget as HTMLDivElement).style.boxShadow = 'none';
+        const el = e.currentTarget as HTMLDivElement;
+        el.style.borderColor = ACCENT.border;
+        el.style.transform = 'translateY(0)';
+        el.style.boxShadow = 'none';
       }}
     >
-      {/* Image area */}
       <div style={{ position: 'relative' }}>
         <CardImageArea spot={spot} />
-
-        {/* Save Toggle */}
         <button
           onClick={e => { e.stopPropagation(); onToggleSave(spot.id); }}
           style={{
             position: 'absolute', top: '12px', right: '12px', zIndex: 5,
-            width: '32px', height: '32px', borderRadius: '50%',
-            background: 'rgba(255,255,255,0.9)', backdropFilter: 'blur(8px)',
+            width: '34px', height: '34px', borderRadius: '50%',
+            background: 'rgba(255,255,255,0.95)', backdropFilter: 'blur(8px)',
             border: 'none',
             display: 'flex', alignItems: 'center', justifyContent: 'center',
-            cursor: 'pointer', boxShadow: '0 2px 8px rgba(0,0,0,0.04)',
-            transition: 'transform 0.15s',
+            cursor: 'pointer',
+            boxShadow: '0 2px 8px rgba(0,0,0,0.06)',
           }}
         >
           {isSaved
-            ? <BookmarkCheck style={{ width: '14px', height: '14px', color: '#1c1917' }} />
-            : <Bookmark style={{ width: '14px', height: '14px', color: '#78716c' }} />}
+            ? <BookmarkCheck style={{ width: '15px', height: '15px', color: ACCENT.red }} />
+            : <Bookmark style={{ width: '15px', height: '15px', color: ACCENT.muted }} />}
         </button>
       </div>
 
-      {/* Card body */}
-      <div style={{ 
-        padding: '20px', 
-        flex: 1, 
-        display: 'flex', 
+      <div style={{
+        padding: '18px 20px 20px',
+        flex: 1,
+        display: 'flex',
         flexDirection: 'column',
-        justifyContent: 'space-between',
-        gap: '20px'
+        gap: '16px',
       }}>
-        
-        {/* upper section container */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
-          
-          {/* Title and Category Icon */}
-          <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: '12px' }}>
-            <div style={{ minWidth: 0, flex: 1 }}>
-              <h3 style={{
-                fontSize: '16px', fontWeight: 600, color: '#1c1917',
-                letterSpacing: '-0.01em', lineHeight: 1.3, margin: 0,
-                overflow: 'hidden', textOverflow: 'ellipsis',
-                display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical',
-              } as React.CSSProperties}>
-                {spot.name}
-              </h3>
-              {spot.chineseName && (
-                <p style={{
-                  fontSize: '12px', color: '#a8a29e', marginTop: '3px',
-                  margin: 0, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap',
-                }}>
-                  {spot.chineseName}
-                </p>
-              )}
-            </div>
-            <div style={{
-              width: '30px', height: '30px', borderRadius: '50%', flexShrink: 0,
-              background: '#f5f5f4',
-              display: 'flex', alignItems: 'center', justifyContent: 'center',
+        {/* Header */}
+        <div style={{ display: 'flex', alignItems: 'flex-start', gap: '12px' }}>
+          <div style={{ minWidth: 0, flex: 1 }}>
+            <h3 style={{
+              fontSize: '17px', fontWeight: 700, color: ACCENT.black,
+              letterSpacing: '-0.02em', lineHeight: 1.25, margin: 0,
             }}>
-              <Icon style={{ width: '13px', height: '13px', color: '#57534e' }} />
-            </div>
-          </div>
-
-          {/* Subheader / Pills */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
-            {cat && (
-              <span style={{
-                fontSize: '10px', fontWeight: 600, color: '#44403c',
-                background: '#f5f5f4', padding: '3px 8px', borderRadius: '4px',
-                letterSpacing: '0.02em', textTransform: 'uppercase'
-              }}>{cat}</span>
-            )}
-            {spot.neighborhood && (
-              <span style={{ fontSize: '12px', color: '#78716c', fontWeight: 400 }}>
-                {spot.neighborhood}
-              </span>
-            )}
-          </div>
-
-          {/* Main Content Details */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-            {spot.hours && (
-              <p style={{ fontSize: '11px', color: '#78716c', margin: 0, display: 'flex', alignItems: 'center', gap: '4px' }}>
-                <span style={{ opacity: 0.8 }}>🕒</span> {spot.hours}
-              </p>
-            )}
-            {spot.description && (
+              {spot.name}
+            </h3>
+            {spot.chineseName && (
               <p style={{
-                fontSize: '13px', color: '#57534e', lineHeight: 1.5, margin: 0,
-                display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical',
-                overflow: 'hidden', textOverflow: 'ellipsis',
-              } as React.CSSProperties}>
-                {spot.description}
+                fontSize: '12px', color: ACCENT.muted, margin: '4px 0 0',
+                overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap',
+              }}>
+                {spot.chineseName}
               </p>
             )}
           </div>
+          <div style={{
+            width: '32px', height: '32px', borderRadius: '10px', flexShrink: 0,
+            background: ACCENT.black,
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+          }}>
+            <Icon style={{ width: '14px', height: '14px', color: 'white' }} />
+          </div>
+        </div>
 
-          {/* Clean minimal hash tags */}
-          {spot.vibes && spot.vibes.length > 0 && (
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
-              {spot.vibes.slice(0, 3).map(tag => (
-                <span key={tag} style={{
-                  fontSize: '11px', fontWeight: 400, color: '#78716c'
-                }}>
-                  #{tag.toLowerCase()}
-                </span>
-              ))}
-            </div>
+        {/* Meta */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
+          {cat && (
+            <span style={{
+              fontSize: '10px', fontWeight: 600, color: 'white',
+              background: ACCENT.black, padding: '4px 10px', borderRadius: '20px',
+              letterSpacing: '0.02em',
+            }}>
+              {cat}
+            </span>
           )}
-
-          {/* Polished Minimalist Local Tip Section */}
-          {spot.localTip && (
-            <div style={{
-              borderLeft: '1.5px solid #d6d3d1',
-              paddingLeft: '12px',
-              marginTop: '4px',
-              display: 'flex',
-              flexDirection: 'column',
-              gap: '3px'
-            }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '5px', color: '#78716c' }}>
-                <Sparkles style={{ width: '10px', height: '10px', color: '#a8a29e' }} />
-                <span style={{
-                  fontSize: '9px', fontWeight: 600, letterSpacing: '0.06em',
-                  textTransform: 'uppercase'
-                }}>
-                  Local Tip
-                </span>
-              </div>
-              <p style={{
-                fontSize: '12px', color: '#57534e', margin: 0,
-                lineHeight: 1.45, fontStyle: 'normal',
-                display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical',
-                overflow: 'hidden', textOverflow: 'ellipsis',
-              } as React.CSSProperties}>
-                {spot.localTip}
-              </p>
-            </div>
+          {hood && (
+            <span style={{ fontSize: '12px', color: ACCENT.muted, fontWeight: 500 }}>
+              {hood}
+            </span>
           )}
         </div>
 
-        {/* Clean Minimal Action Buttons */}
-        <div style={{ display: 'flex', gap: '6px', width: '100%' }}>
+        {/* Hours */}
+        {spot.hours && (
+          <p style={{
+            fontSize: '12px', color: ACCENT.muted, margin: 0, lineHeight: 1.45,
+          }}>
+            🕒 {spot.hours}
+          </p>
+        )}
+
+        {/* Description — full text, no clamp */}
+        {spot.description && (
+          <p style={{
+            fontSize: '13.5px', color: ACCENT.body, lineHeight: 1.6, margin: 0,
+            wordBreak: 'break-word',
+          }}>
+            {spot.description}
+          </p>
+        )}
+
+        {/* Vibes */}
+        {spot.vibes && spot.vibes.length > 0 && (
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
+            {spot.vibes.map(tag => (
+              <span key={tag} style={{
+                fontSize: '11px', fontWeight: 500,
+                color: ACCENT.black,
+                background: '#f5f5f4',
+                padding: '5px 10px',
+                borderRadius: '20px',
+                border: `1px solid ${ACCENT.border}`,
+              }}>
+                #{tag}
+              </span>
+            ))}
+          </div>
+        )}
+
+        {/* Local tip */}
+        {spot.localTip && (
+          <div style={{
+            background: ACCENT.redTint,
+            borderLeft: `3px solid ${ACCENT.red}`,
+            borderRadius: '0 10px 10px 0',
+            padding: '12px 14px',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '6px',
+          }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: ACCENT.red }}>
+              <Sparkles style={{ width: '11px', height: '11px' }} />
+              <span style={{
+                fontSize: '10px', fontWeight: 700, letterSpacing: '0.08em',
+                textTransform: 'uppercase',
+              }}>
+                Local tip
+              </span>
+            </div>
+            <p style={{
+              fontSize: '12.5px', color: ACCENT.body, margin: 0,
+              lineHeight: 1.55, wordBreak: 'break-word',
+            }}>
+              {spot.localTip}
+            </p>
+          </div>
+        )}
+
+        {/* Actions */}
+        <div style={{
+          display: 'flex', flexWrap: 'wrap', gap: '8px',
+          paddingTop: '4px',
+          borderTop: `1px solid ${ACCENT.border}`,
+          marginTop: 'auto',
+        }}>
           {spot.tiktokUrl && (
             <a href={spot.tiktokUrl} target="_blank" rel="noopener noreferrer"
-              onClick={e => e.stopPropagation()} style={actionBtnStyle('#1c1917', 'white')}>
+              onClick={e => e.stopPropagation()} style={actionBtnStyle(ACCENT.black, 'white')}>
               <span style={{ fontSize: '10px', fontWeight: 700 }}>TT</span>
               <span>TikTok</span>
             </a>
           )}
           {spot.rednoteUrl && (
             <a href={spot.rednoteUrl} target="_blank" rel="noopener noreferrer"
-              onClick={e => e.stopPropagation()} style={actionBtnStyle('#ef4444', 'white')}>
+              onClick={e => e.stopPropagation()} style={actionBtnStyle(ACCENT.red, 'white')}>
               <span>小红书</span>
             </a>
           )}
           {spot.amapUrl && (
             <a href={spot.amapUrl} target="_blank" rel="noopener noreferrer"
               onClick={e => e.stopPropagation()}
-              style={{ ...actionBtnStyle('#1c1917', 'white'), flex: 1 }}>
-              <Navigation style={{ width: '11px', height: '11px', fill: 'currentColor' }} />
-              <span style={{ fontWeight: 500 }}>Navigate</span>
+              style={{ ...actionBtnStyle(ACCENT.black, 'white'), flex: '1 1 120px' }}>
+              <Navigation style={{ width: '12px', height: '12px' }} />
+              <span>Navigate</span>
             </a>
           )}
         </div>
@@ -394,13 +401,13 @@ export function SpotCard({ spot, isSaved, onToggleSave }: SpotCardProps) {
 function actionBtnStyle(bg: string, color: string): React.CSSProperties {
   return {
     display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px',
-    padding: '10px 14px', borderRadius: '8px',
+    padding: '10px 14px', borderRadius: '10px',
     background: bg, color,
-    fontSize: '12px', fontWeight: 500,
+    fontSize: '12px', fontWeight: 600,
     textDecoration: 'none',
-    transition: 'opacity 0.15s ease',
     cursor: 'pointer',
     border: 'none',
     flexShrink: 0,
+    minHeight: '40px',
   };
 }
