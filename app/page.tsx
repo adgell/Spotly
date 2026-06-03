@@ -73,7 +73,7 @@ const guides = [
   {
     name: 'The Café Hopper',
     line: 'Specialty roasts, brunch spots, matcha lattes and pastries that travel well',
-    spots: 31,
+    spots: 40,
     accentColor: '#D4537E',
     filter: 'Cafés & Bakery',
   },
@@ -87,14 +87,14 @@ const guides = [
   {
     name: 'The Foodie Local',
     line: 'Hot pot, dumplings, food courts and themed restaurants worth the trip',
-    spots: 13,
+    spots: 17,
     accentColor: '#1D9E75',
     filter: 'Food',
   },
   {
     name: 'The Haul Friend',
     line: 'Flea markets, indie fashion, mall hauls — knows what\'s worth ¥30 and what isn\'t',
-    spots: 12,
+    spots: 14,
     accentColor: '#D85A30',
     filter: 'Shopping',
   },
