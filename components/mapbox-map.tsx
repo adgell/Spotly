@@ -503,6 +503,7 @@ export default function MapboxMap({
                   {s.localTip}
                 </p>
               </div>
+                  </div>
             )}
 
           {/* Actions */}
@@ -538,9 +539,10 @@ export default function MapboxMap({
                 textDecoration: 'none',
               }}
             >
-              See more like this →
+             See more like this →
             </a>
           </div>
+        </div>
         </div>
       )}
     </div>

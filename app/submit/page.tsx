@@ -70,7 +70,7 @@ export default function SubmitSpotPage() {
             </div>
             <h1 className="font-serif text-3xl mb-4">Thank you!</h1>
             <p className="text-muted-foreground mb-8">
-              Your spot recommendation has been submitted. Our team will review it and add it to Spotly if it meets our quality standards. We will notify you by email once it is live.
+              Your spot recommendation has been submitted. Our team will review it and add it to Spotly if it meets our quality standards. 
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
               <Link href="/explore"><Button variant="outline">Explore Spots</Button></Link>
