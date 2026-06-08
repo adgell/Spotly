@@ -507,8 +507,8 @@ export default function MapboxMap({
 
           </div> {/* ← closes body padding div */}
 
-          {/* Actions */}
-          <div style={{ padding: '0 18px 18px', display: 'flex', flexDirection: 'column', gap: 8 }}>
+       {/* Actions */}
+       <div style={{ padding: '0 18px 18px', display: 'flex', flexDirection: 'column', gap: 8 }}>
             {s.amapUrl && (
               
                 href={s.amapUrl}
