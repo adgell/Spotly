@@ -670,27 +670,29 @@ export default function HomePage() {
         </div>
       </section>
       <footer style={{ padding: '48px 24px', background: '#0d0d0c', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
-  <div className="max-w-[1100px] mx-auto">
-    <div className="flex flex-col md:flex-row justify-between items-start gap-8">
-      <div>
-        <Link href="/" className="flex items-center gap-2 mb-3 group">
-          <div className="w-7 h-7 rounded-lg bg-white flex items-center justify-center">
-            <MapPin className="w-3.5 h-3.5 text-black" />
+        <div className="max-w-[1100px] mx-auto">
+          <div className="flex flex-col md:flex-row justify-between items-start gap-8">
+            <div>
+              <Link href="/" className="flex items-center gap-2 mb-3 group">
+                <div className="w-7 h-7 rounded-lg bg-white flex items-center justify-center">
+                  <MapPin className="w-3.5 h-3.5 text-black" />
+                </div>
+                <span className="font-semibold text-white group-hover:text-white/70 transition-colors">Spotly</span>
+              </Link>
+              <p className="text-sm text-white/30 max-w-xs">The city guide for foreigners in Shanghai.</p>
+            </div>
+            <div className="flex gap-12 text-sm">
+              <div>
+                <h4 className="font-medium mb-3 text-white/50">Product</h4>
+                <ul className="space-y-2 text-white/30">
+                  <li><Link href="/explore" className="hover:text-white/60 transition-colors">Explore</Link></li>
+                  <li><Link href="/submit" className="hover:text-white/60 transition-colors">Submit a Spot</Link></li>
+                </ul>
+              </div>
+            </div>
           </div>
-          <span className="font-semibold text-white group-hover:text-white/70 transition-colors">Spotly</span>
-        </Link>
-        <p className="text-sm text-white/30 max-w-xs">The city guide for foreigners in Shanghai.</p>
-      </div>
-      <div className="flex gap-12 text-sm">
-        <div>
-          <h4 className="font-medium mb-3 text-white/50">Product</h4>
-          <ul className="space-y-2 text-white/30">
-            <li><Link href="/explore" className="hover:text-white/60 transition-colors">Explore</Link></li>
-            <li><Link href="/submit" className="hover:text-white/60 transition-colors">Submit a Spot</Link></li>
-          </ul>
-    </div>
-    <div style={{ borderTop: '1px solid rgba(255,255,255,0.06)', marginTop: '40px', paddingTop: '24px', textAlign: 'center', fontSize: '13px', color: 'rgba(255,255,255,0.2)' }}>
-      <p>&copy; 2026 Spotly. All rights reserved.</p>
-    </div>
-  </div>
-</footer>
+          <div style={{ borderTop: '1px solid rgba(255,255,255,0.06)', marginTop: '40px', paddingTop: '24px', textAlign: 'center', fontSize: '13px', color: 'rgba(255,255,255,0.2)' }}>
+            <p>&copy; 2026 Spotly. All rights reserved.</p>
+          </div>
+        </div>
+      </footer>
