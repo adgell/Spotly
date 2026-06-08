@@ -542,4 +542,6 @@ export default function MapboxMap({
   >
     See more like this →
   </a>
-</div>
+  </div>        {/* actions div */}
+        </div>  {/* main card div */}
+      )}
