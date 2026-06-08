@@ -507,39 +507,39 @@ export default function MapboxMap({
 
           </div> {/* ← closes body padding div */}
 
-     {/* Actions */}
-     <div style={{ padding: '0 18px 18px', display: 'flex', flexDirection: 'column', gap: 8 }}>
-            {s.amapUrl && (
-              
-                href={s.amapUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={(e) => e.stopPropagation()}
-                style={{
-                  display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6,
-                  background: '#111110', color: '#fff',
-                  fontSize: 12, fontWeight: 600,
-                  padding: '11px', borderRadius: 11,
-                  textDecoration: 'none',
-                  fontFamily: 'Inter, system-ui, sans-serif',
-                  letterSpacing: '0.01em',
-                }}
-              >
-                <Navigation size={13} />
-                Navigate on Amap
-              </a>
-            )}
-            
-              href={s.exploreUrl}
-              onClick={(e) => e.stopPropagation()}
-              style={{
-                display: 'block', textAlign: 'center',
-                background: 'rgba(0,0,0,0.05)', color: 'rgba(0,0,0,0.7)',
-                fontSize: 11.5, fontWeight: 600,
-                padding: '9px', borderRadius: 10,
-                textDecoration: 'none',
-              }}
-            >
-              See more like this →
-            </a>
-          </div>
+   {/* Actions */}
+<div style={{ padding: '0 18px 18px', display: 'flex', flexDirection: 'column', gap: 8 }}>
+  {s.amapUrl && (
+    
+      href={s.amapUrl}
+      target="_blank"
+      rel="noopener noreferrer"
+      onClick={(e) => e.stopPropagation()}
+      style={{
+        display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6,
+        background: '#111110', color: '#fff',
+        fontSize: 12, fontWeight: 600,
+        padding: '11px', borderRadius: 11,
+        textDecoration: 'none',
+        fontFamily: 'Inter, system-ui, sans-serif',
+        letterSpacing: '0.01em',
+      }}
+    >
+      <Navigation size={13} />
+      Navigate on Amap
+    </a>
+  )}
+  
+    href={s.exploreUrl}
+    onClick={(e) => e.stopPropagation()}
+    style={{
+      display: 'block', textAlign: 'center',
+      background: 'rgba(0,0,0,0.05)', color: 'rgba(0,0,0,0.7)',
+      fontSize: 11.5, fontWeight: 600,
+      padding: '9px', borderRadius: 10,
+      textDecoration: 'none',
+    }}
+  >
+    See more like this →
+  </a>
+</div>
