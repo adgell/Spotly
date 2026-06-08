@@ -15,6 +15,7 @@ export const metadata: Metadata = {
   manifest: '/site.webmanifest', // if you have site.webmanifest in public, keep this line
   icons: {
     icon: [
+      { url: '/favicon.ico', sizes: 'any' }, 
       { url: '/android-chrome-192x192.png', sizes: '192x192', type: 'image/png' },
       { url: '/android-chrome-512x512.png', sizes: '512x512', type: 'image/png' },
     ],
