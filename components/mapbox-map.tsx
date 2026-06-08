@@ -46,16 +46,6 @@ type CardState = { spot: CardSpot; x: number; y: number };
 const CARD_W = 300;
 const CARD_H = 480;
 
-// truncate long text gracefully
-function truncate(s: string, max: number) {
-  if (!s) return '';
-  if (s.length <= max) return s;
-  // cut at last space before max to avoid mid-word
-  const cut = s.slice(0, max);
-  const lastSpace = cut.lastIndexOf(' ');
-  return (lastSpace > max - 30 ? cut.slice(0, lastSpace) : cut).trim() + '…';
-}
-
 function makePinEl(hovered = false): HTMLDivElement {
   const wrap = document.createElement('div');
   wrap.style.cssText = 'cursor:pointer; user-select:none;';
@@ -271,21 +261,8 @@ export default function MapboxMap({
               from { opacity:0; transform:translateY(8px) scale(0.97); }
               to   { opacity:1; transform:translateY(0) scale(1); }
             }
-            .clamp-2 {
-              display: -webkit-box;
-              -webkit-line-clamp: 2;
-              -webkit-box-orient: vertical;
-              overflow: hidden;
-            }
-            .clamp-3 {
-              display: -webkit-box;
-              -webkit-line-clamp: 3;
-              -webkit-box-orient: vertical;
-              overflow: hidden;
-            }
           `}</style>
 
-          {/* Close */}
           <button onClick={() => setCard(null)} style={{
             position: 'absolute', top: 12, right: 12, zIndex: 30,
             width: 28, height: 28, borderRadius: '50%',
@@ -295,7 +272,6 @@ export default function MapboxMap({
             backdropFilter: 'blur(8px)',
           }}>✕</button>
 
-          {/* Rating badge — top left over image */}
           {s.rating > 0 && (
             <div style={{
               position: 'absolute', top: 12, left: 12, zIndex: 30,
@@ -309,7 +285,6 @@ export default function MapboxMap({
             </div>
           )}
 
-          {/* Image carousel */}
           <div style={{ position: 'relative', width: '100%', height: 150, background: '#f0efed', overflow: 'hidden' }}>
             {currentImage ? (
               <img
@@ -378,10 +353,8 @@ export default function MapboxMap({
             )}
           </div>
 
-          {/* Body */}
           <div style={{ padding: '16px 18px 0' }}>
 
-            {/* Name — biggest, boldest element */}
             <h3 style={{
               margin: 0,
               fontSize: 17,
@@ -394,7 +367,6 @@ export default function MapboxMap({
               {s.name}
             </h3>
 
-            {/* Chinese name (if exists) — small, subtle */}
             {s.chineseName && (
               <p style={{
                 margin: '2px 0 0',
@@ -406,7 +378,6 @@ export default function MapboxMap({
               </p>
             )}
 
-            {/* Meta row: category + neighborhood + price */}
             <div style={{
               display: 'flex', alignItems: 'center', gap: 6, flexWrap: 'wrap',
               marginTop: 10, marginBottom: 12,
@@ -433,8 +404,6 @@ export default function MapboxMap({
               )}
             </div>
 
-            {/* Description */}
-         {/* Description — Completely Un-truncated */}
             {s.description && (
               <p style={{
                 margin: '0 0 12px 0', 
@@ -449,7 +418,6 @@ export default function MapboxMap({
               </p>
             )}
 
-            {/* Vibes */}
             {s.vibes && s.vibes.length > 0 && (
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', marginBottom: '14px' }}>
                 {s.vibes.map(v => (
@@ -466,7 +434,6 @@ export default function MapboxMap({
               </div>
             )}
 
-            {/* Luxury Editorial Styled Local Tip — Entirely Un-truncated */}
             {s.localTip && (
               <div style={{
                 background: '#fdfbfc',
@@ -502,46 +469,47 @@ export default function MapboxMap({
                 }}>
                   {s.localTip}
                 </p>
-                </div>
+              </div>
             )}
+          </div>
 
-          </div> {/* ← closes body padding div */}
-
- {/* Actions */}
-<div style={{ padding: '0 18px 18px', display: 'flex', flexDirection: 'column', gap: 8 }}>
-  {s.amapUrl && (
-    <a
-      href={s.amapUrl}
-      target="_blank"
-      rel="noopener noreferrer"
-      onClick={(e) => e.stopPropagation()}
-      style={{
-        display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6,
-        background: '#111110', color: '#fff',
-        fontSize: 12, fontWeight: 600,
-        padding: '11px', borderRadius: 11,
-        textDecoration: 'none',
-        fontFamily: 'Inter, system-ui, sans-serif',
-        letterSpacing: '0.01em',
-      }}
-    >
-      <Navigation size={13} />
-      Navigate on Amap
-    </a>
-  )}
-  <a
-    href={s.exploreUrl}
-    onClick={(e) => e.stopPropagation()}
-    style={{
-      display: 'block', textAlign: 'center',
-      background: 'rgba(0,0,0,0.05)', color: 'rgba(0,0,0,0.7)',
-      fontSize: 11.5, fontWeight: 600,
-      padding: '9px', borderRadius: 10,
-      textDecoration: 'none',
-    }}
-  >
-    See more like this →
-  </a>
-  </div>        {/* actions div */}
-        </div>  {/* main card div */}
+          <div style={{ padding: '0 18px 18px', display: 'flex', flexDirection: 'column', gap: 8 }}>
+            {s.amapUrl && (
+              <a
+                href={s.amapUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={(e) => e.stopPropagation()}
+                style={{
+                  display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6,
+                  background: '#111110', color: '#fff',
+                  fontSize: 12, fontWeight: 600,
+                  padding: '11px', borderRadius: 11,
+                  textDecoration: 'none',
+                  fontFamily: 'Inter, system-ui, sans-serif',
+                  letterSpacing: '0.01em',
+                }}
+              >
+                <Navigation size={13} />
+                Navigate on Amap
+              </a>
+            )}
+            <a
+              href={s.exploreUrl}
+              onClick={(e) => e.stopPropagation()}
+              style={{
+                display: 'block', textAlign: 'center',
+                background: 'rgba(0,0,0,0.05)', color: 'rgba(0,0,0,0.7)',
+                fontSize: 11.5, fontWeight: 600,
+                padding: '9px', borderRadius: 10,
+                textDecoration: 'none',
+              }}
+            >
+              See more like this →
+            </a>
+          </div>
+        </div>
       )}
+    </div>
+  );
+}
