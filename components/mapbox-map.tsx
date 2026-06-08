@@ -502,14 +502,15 @@ export default function MapboxMap({
                 }}>
                   {s.localTip}
                 </p>
-              </div>
-                  </div>
+                </div>
             )}
+
+          </div> {/* ← closes body padding div */}
 
           {/* Actions */}
           <div style={{ padding: '0 18px 18px', display: 'flex', flexDirection: 'column', gap: 8 }}>
             {s.amapUrl && (
-              <a
+              
                 href={s.amapUrl}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -528,7 +529,7 @@ export default function MapboxMap({
                 Navigate on Amap
               </a>
             )}
-            <a
+            
               href={s.exploreUrl}
               onClick={(e) => e.stopPropagation()}
               style={{
@@ -539,11 +540,11 @@ export default function MapboxMap({
                 textDecoration: 'none',
               }}
             >
-             See more like this →
+              See more like this →
             </a>
-          </div>
-        </div>
-        </div>
+          </div> {/* closes actions */}
+        </div> {/* closes card */}
       )}
-    </div>
-  );}
+    </div> {/* closes wrapper */}
+  );
+}
