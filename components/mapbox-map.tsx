@@ -542,6 +542,6 @@ export default function MapboxMap({
             </a>
           </div>
         </div>
-      }
+      )}
     </div>
- 
+  );}
