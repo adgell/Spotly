@@ -264,7 +264,6 @@ function GuideStrip({ guide, index }: { guide: typeof guides[0]; index: number }
   return (
     <Link
       ref={ref as any}
-      // FIXED: encodeURIComponent so '&' and 'é' don't break URL parsing
       href={`/explore?category=${encodeURIComponent(guide.filter)}`}
       className="guide-strip"
       style={{ '--delay': `${index * 70}ms` } as React.CSSProperties}
@@ -387,7 +386,6 @@ function DistrictCard({ district }: { district: typeof districts[0] }) {
     <div
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      // already had encodeURIComponent — kept it
       onClick={() => window.location.href = `/explore?neighborhood=${encodeURIComponent(district.name)}`}
       style={{ width: '260px', height: '360px', borderRadius: '16px', overflow: 'hidden', position: 'relative', flexShrink: 0, cursor: 'pointer' }}
     >
@@ -669,6 +667,7 @@ export default function HomePage() {
           </Link>
         </div>
       </section>
+
       <footer style={{ padding: '48px 24px', background: '#0d0d0c', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
         <div className="max-w-[1100px] mx-auto">
           <div className="flex flex-col md:flex-row justify-between items-start gap-8">
@@ -696,3 +695,6 @@ export default function HomePage() {
           </div>
         </div>
       </footer>
+    </div>
+  );
+}
