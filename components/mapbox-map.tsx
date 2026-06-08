@@ -507,10 +507,10 @@ export default function MapboxMap({
 
           </div> {/* ← closes body padding div */}
 
-   {/* Actions */}
+ {/* Actions */}
 <div style={{ padding: '0 18px 18px', display: 'flex', flexDirection: 'column', gap: 8 }}>
   {s.amapUrl && (
-    
+    <a
       href={s.amapUrl}
       target="_blank"
       rel="noopener noreferrer"
@@ -529,7 +529,7 @@ export default function MapboxMap({
       Navigate on Amap
     </a>
   )}
-  
+  <a
     href={s.exploreUrl}
     onClick={(e) => e.stopPropagation()}
     style={{
