@@ -4,7 +4,6 @@ import { useEffect, useMemo, useRef, useState, useCallback } from 'react';
 import mapboxgl from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { ChevronLeft, ChevronRight, Navigation, Star } from 'lucide-react';
-import { FONT, SpotCardBody } from '@/components/spot-card';
 
 type Spot = {
   id: string | number;
@@ -45,7 +44,7 @@ type CardSpot = {
 type CardState = { spot: CardSpot; x: number; y: number };
 
 const CARD_W = 300;
-const CARD_MAX_H = 560;
+const CARD_H = 480;
 
 // truncate long text gracefully
 function truncate(s: string, max: number) {
@@ -112,9 +111,9 @@ export default function MapboxMap({
   const getCardDimensions = useCallback(() => {
     const wrap = wrapperRef.current;
     const contW = wrap?.clientWidth ?? CARD_W;
-    const contH = wrap?.clientHeight ?? CARD_MAX_H;
+    const contH = wrap?.clientHeight ?? CARD_H;
     const width = Math.min(CARD_W, Math.max(260, contW - 24));
-    const height = Math.min(CARD_MAX_H, Math.max(360, contH - 24));
+    const height = Math.min(CARD_H, Math.max(360, contH - 24));
     return { width, height };
   }, []);
 
@@ -196,7 +195,7 @@ export default function MapboxMap({
             rating:       spot.rating ?? 0,
             images:       spot.images ?? [],
             amapUrl:      spot.amapUrl ?? '',
-            exploreUrl:   `/explore?category=${encodeURIComponent(primaryCategory)}`,
+            exploreUrl:   `/explore?category=${encodeURIComponent(primaryCategory)}&neighborhood=${encodeURIComponent(neigh)}`,
           },
           x, y,
         });
@@ -263,9 +262,7 @@ export default function MapboxMap({
             borderRadius: '20px',
             overflow:     'auto',
             boxShadow:    '0 16px 48px rgba(0,0,0,0.24), 0 2px 8px rgba(0,0,0,0.06)',
-            fontFamily:   FONT,
-            display:      'flex',
-            flexDirection:'column',
+            fontFamily:   'Inter, system-ui, -apple-system, sans-serif',
             animation:    'cardIn 0.18s cubic-bezier(0.16,1,0.3,1)',
           }}
         >
@@ -313,7 +310,7 @@ export default function MapboxMap({
           )}
 
           {/* Image carousel */}
-          <div style={{ position: 'relative', width: '100%', height: 150, background: '#f0efed', overflow: 'hidden', flexShrink: 0 }}>
+          <div style={{ position: 'relative', width: '100%', height: 150, background: '#f0efed', overflow: 'hidden' }}>
             {currentImage ? (
               <img
                 key={currentImage.url}
@@ -381,20 +378,169 @@ export default function MapboxMap({
             )}
           </div>
 
-          <SpotCardBody
-            name={s.name}
-            chineseName={s.chineseName}
-            category={s.category}
-            neighborhood={s.neighborhood}
-            priceLabel={priceLabel}
-            description={s.description}
-            vibes={s.vibes}
-            localTip={s.localTip}
-            amapUrl={s.amapUrl}
-            exploreUrl={s.exploreUrl}
-            headerPaddingRight={28}
-            pinActions={false}
-          />
+          {/* Body */}
+          <div style={{ padding: '16px 18px 0' }}>
+
+            {/* Name — biggest, boldest element */}
+            <h3 style={{
+              margin: 0,
+              fontSize: 17,
+              fontWeight: 700,
+              color: '#0a0a0a',
+              lineHeight: 1.2,
+              letterSpacing: '-0.025em',
+              paddingRight: 32,
+            }}>
+              {s.name}
+            </h3>
+
+            {/* Chinese name (if exists) — small, subtle */}
+            {s.chineseName && (
+              <p style={{
+                margin: '2px 0 0',
+                fontSize: 11,
+                color: 'rgba(0,0,0,0.36)',
+                fontWeight: 400,
+              }}>
+                {s.chineseName}
+              </p>
+            )}
+
+            {/* Meta row: category + neighborhood + price */}
+            <div style={{
+              display: 'flex', alignItems: 'center', gap: 6, flexWrap: 'wrap',
+              marginTop: 10, marginBottom: 12,
+            }}>
+              <span style={{
+                fontSize: 10, fontWeight: 600, color: '#fff',
+                background: '#111110', padding: '3px 10px', borderRadius: 20,
+                letterSpacing: '0.01em',
+              }}>
+                {s.category}
+              </span>
+              {s.neighborhood && (
+                <span style={{ fontSize: 11, color: 'rgba(0,0,0,0.55)', fontWeight: 500 }}>
+                  {s.neighborhood}
+                </span>
+              )}
+              {priceLabel && (
+                <>
+                  <span style={{ color: 'rgba(0,0,0,0.2)', fontSize: 9 }}>•</span>
+                  <span style={{ fontSize: 11, color: 'rgba(0,0,0,0.55)', fontWeight: 500 }}>
+                    {priceLabel}
+                  </span>
+                </>
+              )}
+            </div>
+
+            {/* Description */}
+         {/* Description — Completely Un-truncated */}
+            {s.description && (
+              <p style={{
+                margin: '0 0 12px 0', 
+                fontSize: '13px',
+                color: 'rgba(0, 0, 0, 0.75)',
+                lineHeight: 1.55,
+                fontFamily: 'Inter, system-ui, -apple-system, sans-serif',
+                wordBreak: 'break-word',
+                overflow: 'visible'
+              }}>
+                {s.description}
+              </p>
+            )}
+
+            {/* Vibes */}
+            {s.vibes && s.vibes.length > 0 && (
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', marginBottom: '14px' }}>
+                {s.vibes.map(v => (
+                  <span key={v} style={{
+                    fontSize: '11px', 
+                    fontWeight: 500,
+                    color: '#1c1917',
+                    background: '#f5f5f4',
+                    padding: '3px 9px', 
+                    borderRadius: '4px',
+                    fontFamily: 'Inter, system-ui, -apple-system, sans-serif'
+                  }}>#{v.toLowerCase()}</span>
+                ))}
+              </div>
+            )}
+
+            {/* Luxury Editorial Styled Local Tip — Entirely Un-truncated */}
+            {s.localTip && (
+              <div style={{
+                background: '#fdfbfc',
+                borderLeft: '2.5px solid #ef4444',
+                padding: '12px 14px',
+                borderRadius: '0 8px 8px 0',
+                marginBottom: '16px',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '6px',
+                boxShadow: 'inset 0 0 0 1px rgba(239, 68, 68, 0.04)'
+              }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '5px', color: '#ef4444' }}>
+                  <span style={{
+                    fontSize: '9px', 
+                    fontWeight: 700, 
+                    letterSpacing: '0.08em',
+                    textTransform: 'uppercase',
+                    fontFamily: 'Inter, system-ui, -apple-system, sans-serif'
+                  }}>
+                    Local Tip
+                  </span>
+                </div>
+                <p style={{
+                  fontSize: '12px', 
+                  color: '#44403c', 
+                  margin: 0,
+                  lineHeight: 1.5, 
+                  fontWeight: 450,
+                  fontFamily: 'Inter, system-ui, -apple-system, sans-serif',
+                  wordBreak: 'break-word',
+                  overflow: 'visible'
+                }}>
+                  {s.localTip}
+                </p>
+              </div>
+            )}
+
+          {/* Actions */}
+          <div style={{ padding: '0 18px 18px', display: 'flex', flexDirection: 'column', gap: 8 }}>
+            {s.amapUrl && (
+              <a
+                href={s.amapUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={(e) => e.stopPropagation()}
+                style={{
+                  display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6,
+                  background: '#111110', color: '#fff',
+                  fontSize: 12, fontWeight: 600,
+                  padding: '11px', borderRadius: 11,
+                  textDecoration: 'none',
+                  fontFamily: 'Inter, system-ui, sans-serif',
+                  letterSpacing: '0.01em',
+                }}
+              >
+                <Navigation size={13} />
+                Navigate on Amap
+              </a>
+            )}
+            <a
+              href={s.exploreUrl}
+              onClick={(e) => e.stopPropagation()}
+              style={{
+                display: 'block', textAlign: 'center',
+                background: 'rgba(0,0,0,0.05)', color: 'rgba(0,0,0,0.7)',
+                fontSize: 11.5, fontWeight: 600,
+                padding: '9px', borderRadius: 10,
+                textDecoration: 'none',
+              }}
+            >
+              See more like this →
+            </a>
+          </div>
         </div>
       )}
     </div>
