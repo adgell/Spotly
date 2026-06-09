@@ -18,12 +18,7 @@ export default function Navbar() {
   <img
     src="/logo2.png"
     alt="Spotly logo"
-    style={{
-      width: '220px',
-      height: 'auto',
-      display: 'block',
-      maxWidth: 'none'  // prevent any parent max-width from capping it
-    }}
+    className="w-48 h-auto"  // pure Tailwind, 192px
   />
 </Link>
           {/* Desktop center nav - hidden on mobile */}
