@@ -16,9 +16,9 @@ export default function Navbar() {
   {/* Logo - much larger */}
   <Link href="/" className="flex items-center shrink-0">
     <img
-      src="/spotly-logo.png"
+      src="/logo2.png"
       alt="Spotly logo"
-      className="h-14 sm:h-16 md:h-20 w-auto"
+      className="h-18 sm:h-20 md:h-22 w-auto"
     />
   </Link>
           {/* Desktop center nav - hidden on mobile */}
