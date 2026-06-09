@@ -16,10 +16,10 @@ export default function Navbar() {
           {/* Logo - left */}
           <Link href="/" className="flex items-center gap-2 group shrink-0">
           <img
-  src="/spotly-logo.png"
-  alt="Spotly logo"
-  className="w-32 sm:w-40 md:w-48 h-auto"
-/>
+      src="/spotly-logo.png"
+      alt="Spotly logo"
+      className="h-10 sm:h-10 md:h-12 w-auto"
+    />
 </Link>
 
           {/* Desktop center nav - hidden on mobile */}
