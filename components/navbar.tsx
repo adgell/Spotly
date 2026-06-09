@@ -18,7 +18,7 @@ export default function Navbar() {
   <img
     src="/spotly-logo.png"
     alt="Spotly logo"
-    className="h-8 w-auto"
+    className="h-8 sm:h-10 md:h-12 w-auto"
   />
 </Link>
 
