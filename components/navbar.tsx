@@ -15,11 +15,11 @@ export default function Navbar() {
         <div className="flex items-center justify-between h-16">
           {/* Logo - left */}
           <Link href="/" className="flex items-center gap-2 group shrink-0">
-  <img
-    src="/spotly-logo.png"
-    alt="Spotly logo"
-    className="h-8 sm:h-10 md:h-12 w-auto"
-  />
+          <img
+  src="/spotly-logo.png"
+  alt="Spotly logo"
+  className="w-32 sm:w-40 md:w-48 h-auto"
+/>
 </Link>
 
           {/* Desktop center nav - hidden on mobile */}
