@@ -19,9 +19,10 @@ export default function Navbar() {
     src="/logo2.png"
     alt="Spotly logo"
     style={{
-      width: '180px',
+      width: '220px',
       height: 'auto',
-      maxWidth: '100%'
+      display: 'block',
+      maxWidth: 'none'  // prevent any parent max-width from capping it
     }}
   />
 </Link>
