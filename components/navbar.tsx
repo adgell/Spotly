@@ -16,7 +16,7 @@ export default function Navbar() {
   {/* Logo - much larger */}
   <Link href="/" className="flex items-center shrink-0">
   <img
-    src="/logo2.png"
+    src="/spotly-logo.png"
     alt="Spotly logo"
     className="w-48 h-auto"  // pure Tailwind, 192px
   />
