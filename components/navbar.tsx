@@ -12,15 +12,15 @@ export default function Navbar() {
     <header className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm border-b border-black/8">
       <div className="max-w-[1400px] mx-auto px-4 sm:px-8">
         {/* Main row: flex with justify-between */}
-        <div className="flex items-center justify-between h-20">
-  {/* Logo - much larger */}
-  <Link href="/" className="flex items-center shrink-0">
-  <img
-    src="/spotly-logo.png"
-    alt="Spotly logo"
-    className="w-48 h-auto"  // pure Tailwind, 192px
-  />
-</Link>
+        <div className="flex items-center justify-between h-16">
+          {/* Logo - left */}
+          <Link href="/" className="flex items-center gap-2 group shrink-0">
+            <div className="w-8 h-8 rounded-lg bg-black flex items-center justify-center group-hover:bg-black/80 transition-colors">
+              <MapPin className="w-4 h-4 text-white" />
+            </div>
+            <span className="font-semibold text-lg group-hover:text-black/70 transition-colors">Spotly</span>
+          </Link>
+          
           {/* Desktop center nav - hidden on mobile */}
           <nav className="hidden md:flex items-center justify-center gap-8 absolute left-1/2 transform -translate-x-1/2">
             <Link href="/explore" className="text-sm text-black/60 hover:text-black transition-colors relative after:absolute after:bottom-[-2px] after:left-0 after:w-0 after:h-[1.5px] after:bg-black after:transition-all hover:after:w-full">
