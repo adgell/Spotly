@@ -20,7 +20,7 @@ export default function Navbar() {
             </div>
             <span className="font-semibold text-lg group-hover:text-black/70 transition-colors">Spotly</span>
           </Link>
-          
+
           {/* Desktop center nav - hidden on mobile */}
           <nav className="hidden md:flex items-center justify-center gap-8 absolute left-1/2 transform -translate-x-1/2">
             <Link href="/explore" className="text-sm text-black/60 hover:text-black transition-colors relative after:absolute after:bottom-[-2px] after:left-0 after:w-0 after:h-[1.5px] after:bg-black after:transition-all hover:after:w-full">
@@ -63,7 +63,6 @@ export default function Navbar() {
               </Link>
             </div>
           </div>
-        </div>
         </div>
       )}
     </header>
