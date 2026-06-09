@@ -18,7 +18,7 @@ export default function Navbar() {
     <img
       src="/spotly-logo.png"
       alt="Spotly logo"
-      className="h-12 sm:h-14 md:h-16 w-auto"
+      className="h-14 sm:h-16 md:h-20 w-auto"
     />
   </Link>
           {/* Desktop center nav - hidden on mobile */}
