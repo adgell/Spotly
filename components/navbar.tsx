@@ -18,7 +18,11 @@ export default function Navbar() {
   <img
     src="/logo2.png"
     alt="Spotly logo"
-    className="h-14 sm:h-16 md:h-20 w-auto"
+    style={{
+      width: '180px',
+      height: 'auto',
+      maxWidth: '100%'
+    }}
   />
 </Link>
           {/* Desktop center nav - hidden on mobile */}
