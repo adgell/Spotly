@@ -15,12 +15,12 @@ export default function Navbar() {
         <div className="flex items-center justify-between h-20">
   {/* Logo - much larger */}
   <Link href="/" className="flex items-center shrink-0">
-    <img
-      src="/logo2.png"
-      alt="Spotly logo"
-      className="h-18 sm:h-20 md:h-22 w-auto"
-    />
-  </Link>
+  <img
+    src="/logo2.png"
+    alt="Spotly logo"
+    className="h-14 sm:h-16 md:h-20 w-auto"
+  />
+</Link>
           {/* Desktop center nav - hidden on mobile */}
           <nav className="hidden md:flex items-center justify-center gap-8 absolute left-1/2 transform -translate-x-1/2">
             <Link href="/explore" className="text-sm text-black/60 hover:text-black transition-colors relative after:absolute after:bottom-[-2px] after:left-0 after:w-0 after:h-[1.5px] after:bg-black after:transition-all hover:after:w-full">
