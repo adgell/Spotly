@@ -14,12 +14,12 @@ export default function Navbar() {
         {/* Main row: flex with justify-between */}
         <div className="flex items-center justify-between h-16">
           {/* Logo - left */}
-          <Link href="/" className="flex items-center gap-2 group shrink-0">
-          <img
-      src="/spotly-logo.png"
-      alt="Spotly logo"
-      className="h-10 sm:h-10 md:h-12 w-auto"
-    />
+          <Link href="/" className="flex items-center shrink-0">
+  <img
+    src="/spotly-logo.png"
+    alt="Spotly logo"
+    className="h-10 sm:h-12 md:h-14 w-auto"
+  />
 </Link>
 
           {/* Desktop center nav - hidden on mobile */}
