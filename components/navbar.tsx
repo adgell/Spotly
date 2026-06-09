@@ -15,11 +15,12 @@ export default function Navbar() {
         <div className="flex items-center justify-between h-16">
           {/* Logo - left */}
           <Link href="/" className="flex items-center gap-2 group shrink-0">
-            <div className="w-8 h-8 rounded-lg bg-black flex items-center justify-center group-hover:bg-black/80 transition-colors">
-              <MapPin className="w-4 h-4 text-white" />
-            </div>
-            <span className="font-semibold text-lg group-hover:text-black/70 transition-colors">Spotly</span>
-          </Link>
+  <img
+    src="/spotly-logo.png"
+    alt="Spotly logo"
+    className="h-8 w-auto"
+  />
+</Link>
 
           {/* Desktop center nav - hidden on mobile */}
           <nav className="hidden md:flex items-center justify-center gap-8 absolute left-1/2 transform -translate-x-1/2">
