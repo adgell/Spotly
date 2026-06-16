@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import {
   MapPin, Star, Coffee, Utensils, Wine, Music, ShoppingBag,
   Trees, Eye, Bookmark, BookmarkCheck, Navigation,
@@ -29,6 +29,60 @@ export type Spot = {
   images?: { url: string }[];
 };
 
+// ─── ExpandableText component ──────────────────────────────────────────────
+
+function ExpandableText({
+  text,
+  lines = 2,
+  style,
+}: {
+  text: string;
+  lines?: number;
+  style?: React.CSSProperties;
+}) {
+  const ref = useRef<HTMLParagraphElement>(null);
+  const [overflows, setOverflows] = useState(false);
+  const [expanded, setExpanded] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    setOverflows(el.scrollHeight > el.clientHeight + 2);
+  }, [text]);
+
+  return (
+    <div>
+      <p
+        ref={ref}
+        style={{
+          ...style,
+          margin: 0,
+          display: '-webkit-box',
+          WebkitBoxOrient: 'vertical',
+          overflow: 'hidden',
+          WebkitLineClamp: expanded ? 'unset' : lines,
+        } as React.CSSProperties}
+      >
+        {text}
+      </p>
+      {(overflows || expanded) && (
+        <button
+          onClick={e => { e.stopPropagation(); setExpanded(v => !v); }}
+          style={{
+            background: 'none', border: 'none', padding: '3px 0 0',
+            fontSize: '11px', fontWeight: 600, color: '#78716c',
+            cursor: 'pointer', letterSpacing: '0.01em',
+          }}
+        >
+          {expanded ? 'Show less ↑' : 'Read more ↓'}
+        </button>
+      )}
+    </div>
+  );
+}
+
+// ─── Helpers ────────────────────────────────────────────────────────────────
+
 function getCategoryIcon(cat: string) {
   switch (cat) {
     case 'Food':           return Utensils;
@@ -54,6 +108,8 @@ function getFirstCategory(spot: Spot): string {
   if (Array.isArray(spot.category)) return spot.category[0] ?? '';
   return spot.category ?? '';
 }
+
+// ─── CardImageArea ──────────────────────────────────────────────────────────
 
 function CardImageArea({ spot }: { spot: Spot }) {
   const images = spot.images ?? [];
@@ -158,6 +214,8 @@ function navBtnStyle(side: 'left' | 'right'): React.CSSProperties {
   };
 }
 
+// ─── SpotCard ───────────────────────────────────────────────────────────────
+
 type SpotCardProps = {
   spot: Spot;
   isSaved: boolean;
@@ -255,14 +313,13 @@ export function SpotCard({ spot, isSaved, onToggleSave }: SpotCardProps) {
                 <span style={{ opacity: 0.8 }}>🕒</span> {spot.hours}
               </p>
             )}
+            {/* ─── REPLACED: description with ExpandableText ─── */}
             {spot.description && (
-              <p style={{
-                fontSize: '13px', color: '#272522', lineHeight: 1.5, margin: 0,
-                display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical',
-                overflow: 'hidden', textOverflow: 'ellipsis',
-              } as React.CSSProperties}>
-                {spot.description}
-              </p>
+              <ExpandableText
+                text={spot.description}
+                lines={2}
+                style={{ fontSize: '13px', color: '#272522', lineHeight: 1.5 }}
+              />
             )}
           </div>
 
@@ -301,14 +358,12 @@ export function SpotCard({ spot, isSaved, onToggleSave }: SpotCardProps) {
                   Local Tip
                 </span>
               </div>
-              <p style={{
-                fontSize: '12px', color: '#44403c', margin: 0,
-                lineHeight: 1.45, fontWeight: 450,
-                display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical',
-                overflow: 'hidden', textOverflow: 'ellipsis',
-              } as React.CSSProperties}>
-                {spot.localTip}
-              </p>
+              {/* ─── REPLACED: localTip with ExpandableText ─── */}
+              <ExpandableText
+                text={spot.localTip}
+                lines={2}
+                style={{ fontSize: '12px', color: '#44403c', lineHeight: 1.45, fontWeight: 450 }}
+              />
             </div>
           )}
         </div>
